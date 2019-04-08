@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Insert Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>บันทึกข้อมูล</h2>
+        <form action="{{ url_for('insert') }}" method="post">
+            <div class="form-group">
+                <label for="userfname">ชื่อของคุณ</label>
+                <input type="text" class="form-control" name="userfname">
+            </div>
+            <div class="form-group">
+                <label for="userlname">นามสกุลของคุณ</label>
+                <input type="text" class="form-control" name="userlname">
+            </div>
+            <div class="form-group">
+                <label for="useremail">E-mail ของคุณ</label>
+                <input type="text" class="form-control" name="useremail">
+            </div>
+            <div class="form-group">
+                <label for="usertel">เบอร์โทรศัพท์ของคุณ</label>
+                <input type="text" class="form-control" name="usertel">
+            </div>
+            <div class="form-group">
+                <label for="Type">ประเภทของแอพลิเคชัน</label>
+                <select class="form-control" name="Type">
+                    <option value="Facebook">Facebook</option>
+                    <option value="E-mail">E-mail</option>
+                    <option value="Line">Line</option>
+                    <option value="Website">Website</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Sussocial">ผู้ต้องสงสัย (ตัวอย่างเช่น ชื่อ Facebook, E-mail, LineID(หรือชื่อ Line), Link ของ
+                    Website)</label>
+                <input type="text" class="form-control" name="Sussocial">
+            </div>
+            <div class="form-group">
+                <label for="Susfname">ชื่อของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
+                <input type="text" class="form-control" name="Susfname">
+            </div>
+            <div class="form-group">
+                    <label for="Suslname">นามสกุลของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
+                    <input type="text" class="form-control" name="Suslname">
+            </div>
+            <div class="form-group">
+                <label for="Case">ประเภทของคดี</label>
+                <br>
+                <input type="radio" name="Case" value="Hacking to modify / steal / destroy Data"> Hacking to modify /
+                steal / destroy Data
+                <br>
+                <input type="radio" name="Case" value="Selling products / Services scam "> Selling products / Services
+                scam
+                <br>
+                <input type="radio" name="Case" value="Fake to others"> Fake to others
+                <br>
+                <input type="radio" name="Case" value="Scam to transfer money"> Scam to transfer money
+                <br>
+                <input type="radio" name="Case" value="Email scam"> Email scam
+                <br>
+                <input type="radio" name="Case" value="Romance scam"> Romance scam
+                <br>
+                <input type="radio" name="Case" value="Blackmail"> Blackmail
+                <br>
+                <input type="radio" name="Case" value="Defamation"> Defamation
+            </div>
+            <a class="btn btn-success" href="/">กลับหน้าแรก</a>
+            <button type="submit" class="pull-right btn btn-primary">บันทึก</button>
+        </form>
+    </div>
+</body>
+
+</html>

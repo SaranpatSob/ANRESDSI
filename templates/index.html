@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flask Python</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 align="center">Test Data Flask | Python</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ลำดับที่</th>
+                    <th>ชื่อผู้แจ้ง</th>
+                    <th>ประเภทแอพลิเคชัน</th>
+                    <th>ชื่อผู้ต้องสงสัย</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in count %}
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{name[i]}}</td>
+                    <td>{{socialtype[i]}}</td>
+                    <td>{{susname[i]}}</td>
+                    <!-- <td>{{key[i]}}</td> -->
+                    <td>
+                        <a href="" class="btn btn-success btn-xs" data-toggle="modal"
+                            data-target="#modalinfo{{ key[i] }}">Info</a>
+                        <a href="" class="btn btn-warning btn-xs" data-toggle="modal"
+                            data-target="#modaledit{{ key[i] }}">Edit</a>
+                        <a href="/delete/{{ key[i] }}" class="btn btn-danger btn-xs"
+                            onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่?')">Delete</a>
+                    </td>
+                </tr>
+                <div id="modaledit{{key[i]}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/update" method="POST">
+                                    <div class="form-group">
+                                        <label>ชื่อผู้แจ้ง:</label>
+                                        <input type="hidden" name="id" value="{{key[i]}}">
+                                        <input type="text" class="form-control" name="username" value="{{name[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ประเภทแอพลิเคชัน:</label>
+                                        <input type="text" class="form-control" name="userage" value="{{socialtype[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ชื่อผู้ต้องสงสัย:</label>
+                                        <input type="text" class="form-control" name="usertel" value="{{susname[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">อัพเดท</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="modalinfo{{key[i]}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">ข้อมูลของผู้ต้องสงสัย</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>ชื่อผู้ต้องสงสัย: {{susname[i]}}</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>ประเภทของแอพลิเคชั่น: {{socialtype[i]}}</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>ชื่อในแอพลิเคชั่น: {{sussocial[i]}}</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/InsertData" class="pull-right btn btn-primary">เพิ่มรายชื่อใหม่</a>
+        <a href="/" class="btn btn-defult">ย้อนกลับ</a>
+    </div>
+</body>
+
+</html>
