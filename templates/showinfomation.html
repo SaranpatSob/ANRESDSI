@@ -13,12 +13,13 @@
 
 <body>
     <div class="container">
-        <h1 align="center">Test Data Flask | Python</h1>
+        <!-- <h1 align="center">Test Data Flask | Python</h1> -->
+        <h1 align="center">ข้อมูลจากการค้นหาจาก{{show}}</h1>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ลำดับที่</th>
-                    <th>ชื่อผู้แจ้ง</th>
+                    <!-- <th>ชื่อผู้แจ้ง</th> -->
                     <th>วันที่แจ้ง(วัน/เดือน/ปี)</th>
                     <th>ประเภทของคดี</th>
                     <th>ข้อมูลผู้ต้องสงสัย</th>
@@ -28,7 +29,7 @@
                 {% for i in count %}
                 <tr>
                     <td>{{i+1}}</td>
-                    <td>{{name[i]}}</td>
+                    <!-- <td>{{name[i]}}</td> -->
                     <td>{{date[i]}}</td>
                     <td>{{case[i]}}</td>
                     <!-- <td>{{susname[i]}}</td> -->
