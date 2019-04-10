@@ -4,7 +4,7 @@
 
 API list
 
-http://noppanutt.pythonanywhere.com/InfomationFromUser_search_fname=<fname>&&sname=<sname> <- หาจากชื่อผู้แจ้ง แทน <fname> เป็นชื่อ และ <sname> เป็นนามสกุล ของผู้แจ้ง
+http://noppanutt.pythonanywhere.com/InfomationFromUser_search_fname= <fname>&&sname=<sname> <- หาจากชื่อผู้แจ้ง แทน <fname> เป็นชื่อ และ <sname> เป็นนามสกุล ของผู้แจ้ง
 		
 	ตัวอย่าง ต้องการค้น ชื่อ นามสกุล จะได้เป็น http://noppanutt.pythonanywhere.com/InfomationFromUser_search_fname=ชื่อ&&sname=นามสกุล
 
