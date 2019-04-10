@@ -4,9 +4,10 @@ import datetime
 from firebase_admin import storage,credentials
 from werkzeug import secure_filename
 import firebase_admin
+from return_json import return_json 
 
 firebase = firebase.FirebaseApplication(
-    'https://anres-test.firebaseio.com/', None)
+    'https://test-database-anres.firebaseio.com', None)
 app = Flask(__name__)
 
 
@@ -45,7 +46,7 @@ def Showuser():
     try:
         userfname = request.form['userfname']
         userlname = request.form['userlname']
-        username = userfname+' '+userlname
+        username = userfname+'_'+userlname
         result = firebase.get('/users', None)
         name = []
         sussocial = []
@@ -95,7 +96,7 @@ def API_Showuser(fname,sname):
     try:
         userfname = fname
         userlname = sname
-        username = userfname+' '+userlname
+        username = userfname+'_'+userlname
         result = firebase.get('/users', None)
         name = []
         sussocial = []
@@ -135,8 +136,7 @@ def API_Showuser(fname,sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinfomation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของ User")
-
+        return return_json(name,case,susname,sussocial,socialtype)
     except:
         return render_template('no_data.html')
 
@@ -145,7 +145,7 @@ def Showsusname():
     try:
         susfname = request.form['susfname']
         suslname = request.form['suslname']
-        Susname = susfname+' '+suslname
+        Susname = susfname+'_'+suslname
         result = firebase.get('/users', None)
         name = []
         sussocial = []
@@ -195,7 +195,7 @@ def API_Showsusname(fname,sname):
     try:
         susfname = fname
         suslname = sname
-        Susname = susfname+' '+suslname
+        Susname = susfname+'_'+suslname
         result = firebase.get('/users', None)
         name = []
         sussocial = []
@@ -235,8 +235,7 @@ def API_Showsusname(fname,sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinfomation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของผู้ต้องสงสัย")
-
+        return return_json(name,case,susname,sussocial,socialtype)
     except:
         return render_template('no_data.html')
 
@@ -331,7 +330,7 @@ def API_Showcase(case):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinfomation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของคดี")
+        return return_json(name,case,susname,sussocial,socialtype)
 
     except:
         return render_template('no_data.html')
@@ -429,8 +428,7 @@ def API_Showdate(date):
                     key.append(Info)
                     count.append(i)
                     i += 1
-                    return render_template('showinfomation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของวันที่แจ้งเหตุ")
-
+        return return_json(name,case,susname,sussocial,socialtype)
     except :
         # flash("Don't Have any Day that you want")
         return render_template('no_data.html') 
@@ -525,7 +523,8 @@ def API_Showtype(typee):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinfomation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของประเภท")
+        return return_json(name,case,susname,sussocial,socialtype)
+
     except:
         return render_template('no_data.html')
 
@@ -589,9 +588,9 @@ def insert():
         Sussocial = request.form['Sussocial']
         Susfname = request.form['Susfname']
         Suslname = request.form['Suslname']
-        username = userfname+' '+userlname
+        username = userfname+'_'+userlname
         if ((Susfname != '-') and (Suslname)):
-            Susname = Susfname+' '+Suslname
+            Susname = Susfname+'_'+Suslname
         else:
             Susname = '-'
         Case = request.form['Case']
