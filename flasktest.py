@@ -604,15 +604,19 @@ def insert():
         firebase.put(pth, name="Susname", data=Susname)
         firebase.put(pth, name="Case", data=Case)
         name_sum = userfname+'_'+userlname
-        img = request.files['image']
-        filename = secure_filename(img.filename)
-        img.save('upload/'+name_sum+"_"+time+filename)
-        cred = credentials.Certificate('anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
-        firebase_admin.initialize_app(cred, {'storageBucket': 'anres-test.appspot.com'})
-        bucket = storage.bucket()
-        blob = bucket.blob(name_sum+'/'+time+"T"+filename)
-        blob.upload_from_filename('upload/'+name_sum+"_"+time+filename)
-        firebase.put(pth, name="Image", data=time+"T"+filename)
+        # img = request.files['image']
+        img = request.files.getlist("image")
+        k=1
+        for i in img:
+            filename = secure_filename(i.filename)
+            i.save('upload/'+name_sum+"_"+time+filename)
+            cred = credentials.Certificate('anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
+            firebase_admin.initialize_app(cred, {'storageBucket': 'anres-test.appspot.com'})
+            bucket = storage.bucket()
+            blob = bucket.blob(name_sum+'/'+time+"T"+filename)
+            blob.upload_from_filename('upload/'+name_sum+"_"+time+filename)
+            firebase.put(pth, name="Image"+str(k), data=time+"T"+filename)
+            k+=1
         return render_template('Thanks.html')
 
 
