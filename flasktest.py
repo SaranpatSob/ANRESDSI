@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 import firebase_admin
 
 firebase = firebase.FirebaseApplication(
-    'https://test-database-anres.firebaseio.com', None)
+    'https://anres-test.firebaseio.com/', None)
 app = Flask(__name__)
 
 
