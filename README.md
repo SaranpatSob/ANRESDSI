@@ -11,6 +11,7 @@ http://noppanutt.pythonanywhere.com/InfomationFromUser_search_fname=<fname>&&sna
 http://noppanutt.pythonanywhere.com/InfomationFromSuspect_search_fname=<fname>&&sname=<sname> <- หาจากชื่อผู้ต้องสงสัย แทน <fname> เป็นชื่อ และ <sname> เป็นนามสกุล ของผู้ต้องสงสัย
 
 http://noppanutt.pythonanywhere.com/InfomationFromCase_search_case=<case> <- หาจากประเภทคดี แทน <case> เป็นประเภทของการทำความผิด
+	
 	List ของประเภทการทำความผิด
 	-	Hacking_to_modify_or_steal_or_destroy_Data
 	-	Selling_products_or_Services_scam
@@ -24,6 +25,7 @@ http://noppanutt.pythonanywhere.com/InfomationFromCase_search_case=<case> <- ห
 http://noppanutt.pythonanywhere.com/InfomationFromDate_search_date=<date> <- ค้นหาจากวันที่แจ้งเหตุ แทน <date> เป็นวันที่ในรูปแบบ วว-ดด-ปป โดยปีเป็น ค.ศ.
 
 http://noppanutt.pythonanywhere.com/InfomationFromType_search_type=<typee> <- ค้นหาจากประเภทสื่อ socialMedia
+	
 	List ของ SocialMedia
 	-	Facebook
 	-	E-mail
