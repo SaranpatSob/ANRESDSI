@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 import firebase_admin
 
 firebase = firebase.FirebaseApplication(
-    'https://anres-test.firebaseio.com/', None)
+    'https://test-database-anres.firebaseio.com', None)
 app = Flask(__name__)
 
 
@@ -628,8 +628,8 @@ def update():
     if request.method == 'POST':
         updatekey = request.form['id']
         username = request.form['username']
-        userage = request.form['userage']
-        usertel = request.form['usertel']
+        userage = request.form['socialtype']
+        susname = request.form['susname']
         pth = '/users/'+(updatekey)
         firebase.put(pth, name="Name", data=username)
         firebase.put(pth, name="Age", data=userage)
