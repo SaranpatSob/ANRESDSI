@@ -19,8 +19,9 @@
                 <tr>
                     <th>ลำดับที่</th>
                     <th>ชื่อผู้แจ้ง</th>
-                    <th>ประเภทแอพลิเคชัน</th>
-                    <th>ชื่อผู้ต้องสงสัย</th>
+                    <th>อายุ</th>
+                    <th>E-mail</th>
+                    <th>เบอร์โทรศัพท์</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -29,9 +30,16 @@
                 <tr>
                     <td>{{i+1}}</td>
                     <td>{{name[i]}}</td>
-                    <td>{{socialtype[i]}}</td>
-                    <td>{{susname[i]}}</td>
+                    <td>{{age[i]}}</td>
+                    <td>{{email[i]}}</td>
+                    <td>{{tel[i]}}</td>
                     <!-- <td>{{key[i]}}</td> -->
+                    <!-- <td>{{susname[i]}}</td> -->
+                    <!-- <td>{{date[i]}}</td> -->
+                    <!-- <td>{{socialtype[i]}}</td> -->
+                    <!-- <td>{{sussocial[i]}}</td> -->
+                    <!-- <td>{{other[i]}}</td> -->
+                    <!-- <td>{{case[i]}}</td> -->
                     <td>
                         <a href="" class="btn btn-success btn-xs" data-toggle="modal"
                             data-target="#modalinfo{{ key[i] }}">Info</a>
@@ -53,15 +61,71 @@
                                     <div class="form-group">
                                         <label>ชื่อผู้แจ้ง:</label>
                                         <input type="hidden" name="id" value="{{key[i]}}">
-                                        <input type="text" class="form-control" name="username" value="{{name[i]}}">
+                                        <input type="text" class="form-control" name="userfname">
                                     </div>
                                     <div class="form-group">
-                                        <label>ประเภทแอพลิเคชัน:</label>
-                                        <input type="text" class="form-control" name="socialtype" value="{{socialtype[i]}}">
+                                        <label>นามสกุลผู้แจ้ง:</label>
+                                        <input type="text" class="form-control" name="userlname">
                                     </div>
                                     <div class="form-group">
-                                        <label>ชื่อผู้ต้องสงสัย:</label>
-                                        <input type="text" class="form-control" name="usertel" value="{{susname[i]}}">
+                                        <label for="useremail">E-mail ของผู้แจ้ง</label>
+                                        <input type="text" class="form-control" name="useremail" value="{{email[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="userage">อายุของผู้แจ้ง</label>
+                                        <input type="text" class="form-control" name="userage" value="{{age[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="usertel">เบอร์โทรศัพท์ของผู้แจ้ง</label>
+                                        <input type="text" class="form-control" name="usertel" value="{{tel[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Type">ประเภทของแอพลิเคชัน</label>
+                                        <select class="form-control" name="Type">
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="E-mail">E-mail</option>
+                                            <option value="Line">Line</option>
+                                            <option value="Website">Website</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Sussocial">ผู้ต้องสงสัย (ตัวอย่างเช่น ชื่อ Facebook, E-mail,
+                                            LineID(หรือชื่อ Line), Link ของ
+                                            Website)</label>
+                                        <input type="text" class="form-control" name="Sussocial"
+                                            value="{{sussocial[i]}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Susfname">ชื่อของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
+                                        <input type="text" class="form-control" name="Susfname">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Suslname">นามสกุลของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
+                                        <input type="text" class="form-control" name="Suslname">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Case">ประเภทของคดี</label>
+                                        <br>
+                                        <input type="radio" name="Case"
+                                            value="Hacking_to_modify_or_steal_or_destroy_Data"> Hacking to modify / steal / destroy Data
+                                        <br>
+                                        <input type="radio" name="Case" value="Selling_products_or_Services_scam">Selling products / Services scam
+                                        <br>
+                                        <input type="radio" name="Case" value="Fake_to_others"> Fake to others
+                                        <br>
+                                        <input type="radio" name="Case" value="Scam_to_transfer_money"> Scam to transfer money
+                                        <br>
+                                        <input type="radio" name="Case" value="Email_scam"> Email scam
+                                        <br>
+                                        <input type="radio" name="Case" value="Romance_scam"> Romance scam
+                                        <br>
+                                        <input type="radio" name="Case" value="Blackmail"> Blackmail
+                                        <br>
+                                        <input type="radio" name="Case" value="Defamation"> Defamation
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Other">ข้อมูลเพื่มเติม (ไม่มี ใส่ "-")</label>
+                                        <textarea rows="10" cols="30" input type="text" maxlength="300" class="form-control" name="Other" value="{{other[i]}}"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <button class="btn btn-primary" type="submit">อัพเดท</button>
@@ -83,6 +147,9 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <label>วันที่แจ้ง: {{date[i]}}</label>
+                                </div>
+                                <div class="form-group">
                                     <label>ชื่อผู้ต้องสงสัย: {{susname[i]}}</label>
                                 </div>
                                 <div class="form-group">
@@ -91,6 +158,13 @@
                                 <div class="form-group">
                                     <label>ชื่อในแอพลิเคชั่น: {{sussocial[i]}}</label>
                                 </div>
+                                <div class="form-group">
+                                    <label>ประเภทของคดี: {{case[i]}}</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>ข้อมูลเพิ่มเติม: {{other[i]}}</label>
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

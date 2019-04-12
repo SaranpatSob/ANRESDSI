@@ -28,6 +28,10 @@
                 <input type="text" class="form-control" name="useremail">
             </div>
             <div class="form-group">
+                <label for="userage">อายุของคุณ</label>
+                <input type="text" class="form-control" name="userage">
+            </div>
+            <div class="form-group">
                 <label for="usertel">เบอร์โทรศัพท์ของคุณ</label>
                 <input type="text" class="form-control" name="usertel">
             </div>
@@ -50,8 +54,8 @@
                 <input type="text" class="form-control" name="Susfname">
             </div>
             <div class="form-group">
-                    <label for="Suslname">นามสกุลของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
-                    <input type="text" class="form-control" name="Suslname">
+                <label for="Suslname">นามสกุลของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
+                <input type="text" class="form-control" name="Suslname">
             </div>
             <div class="form-group">
                 <label for="Case">ประเภทของคดี</label>
@@ -74,8 +78,12 @@
                 <br>
                 <input type="radio" name="Case" value="Defamation"> Defamation
             </div>
+            <div class="form-group">
+                <label for="Other">ข้อมูลเพื่มเติม (ไม่มี ใส่ "-")</label>
+                <textarea rows="10" cols="30" input type="text" maxlength="300" class="form-control" name="Other"></textarea>
+            </div>
             <p>
-                <b>รูปภาพที่ต้องการแนบ</b> 
+                <b>รูปภาพที่ต้องการแนบ</b>
                 <input type="file" name="image" id="image" accept="image/*" multiple>
             </p>
             <a class="btn btn-success" href="/">กลับหน้าแรก</a>
