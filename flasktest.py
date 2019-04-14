@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for,flash
+from flask import Flask, render_template, request, redirect, url_for, flash
 from firebase import firebase
 import datetime
-from firebase_admin import storage,credentials
+from firebase_admin import storage, credentials
 from werkzeug import secure_filename
 import firebase_admin
-from return_json import return_json 
+from return_json import return_json
 
 firebase = firebase.FirebaseApplication(
     'https://test-database-anres.firebaseio.com', None)
@@ -86,13 +86,14 @@ def Showuser():
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinformation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของ User")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของ User")
 
     except:
         return render_template('no_data.html')
 
+
 @app.route("/InformationFromUser_search_fname=<fname>&&sname=<sname>", methods=['GET'])
-def API_Showuser(fname,sname):
+def API_Showuser(fname, sname):
     try:
         userfname = fname
         userlname = sname
@@ -136,9 +137,10 @@ def API_Showuser(fname,sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name,case,susname,sussocial,socialtype)
+        return return_json(name, case, susname, sussocial, socialtype)
     except:
         return render_template('no_data.html')
+
 
 @app.route("/InformationFromSuspect", methods=['POST'])
 def Showsusname():
@@ -185,13 +187,14 @@ def Showsusname():
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinformation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของผู้ต้องสงสัย")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของผู้ต้องสงสัย")
 
     except:
         return render_template('no_data.html')
 
+
 @app.route("/InformationFromSuspect_search_fname=<fname>&&sname=<sname>", methods=['GET'])
-def API_Showsusname(fname,sname):
+def API_Showsusname(fname, sname):
     try:
         susfname = fname
         suslname = sname
@@ -235,9 +238,10 @@ def API_Showsusname(fname,sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name,case,susname,sussocial,socialtype)
+        return return_json(name, case, susname, sussocial, socialtype)
     except:
         return render_template('no_data.html')
+
 
 @app.route("/InformationFromCase", methods=['POST'])
 def Showcase():
@@ -282,10 +286,11 @@ def Showcase():
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinformation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของคดี")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของคดี")
 
     except:
         return render_template('no_data.html')
+
 
 @app.route("/InformationFromCase_search_case=<case>", methods=['GET'])
 def API_Showcase(case):
@@ -330,10 +335,11 @@ def API_Showcase(case):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name,case,susname,sussocial,socialtype)
+        return return_json(name, case, susname, sussocial, socialtype)
 
     except:
         return render_template('no_data.html')
+
 
 @app.route("/InformationFromDate", methods=['POST'])
 def Showdate():
@@ -379,11 +385,12 @@ def Showdate():
                     key.append(Info)
                     count.append(i)
                     i += 1
-                    return render_template('showinformation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของวันที่แจ้งเหตุ")
+                    return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
 
-    except :
-        return "Don't Have any Day that you want"        
-    
+    except:
+        return "Don't Have any Day that you want"
+
+
 @app.route("/InformationFromDate_search_date=<date>", methods=['GET'])
 def API_Showdate(date):
     Date = date
@@ -428,16 +435,24 @@ def API_Showdate(date):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name,case,susname,sussocial,socialtype)
-    except :
+        return return_json(name, case, susname, sussocial, socialtype)
+    except:
         # flash("Don't Have any Day that you want")
-        return render_template('no_data.html') 
+        return render_template('no_data.html')
+
 
 @app.route("/InformationFromType", methods=['POST'])
 def Showtype():
     try:
         Type = request.form['Type']
-        result = firebase.get('/users', None)
+        if (Type == "Facebook"):
+            Sussocial = request.form['Susfacebook']
+        elif (Type == "E-mail"):
+            Sussocial = request.form['Susemail']
+        elif (Type == "Website"):
+            Sussocial = request.form['Susurl']
+        else:
+            Sussocial = request.form['Susline']
         name = []
         sussocial = []
         case = []
@@ -450,35 +465,37 @@ def Showtype():
         for Info in result:
             if (result[Info] != None):
                 if (result[Info]["Type"] == Type):
-                    if "Name" in result[Info]:
-                        name.append(result[Info]["Name"])
-                    else:
-                        name.append("NO Info")
-                    if "Case" in result[Info]:
-                        case.append(result[Info]["Case"])
-                    else:
-                        case.append("NO Info")
-                    if "Susname" in result[Info]:
-                        susname.append(result[Info]["Susname"])
-                    else:
-                        susname.append("NO Info")
-                    if "Sussocial" in result[Info]:
-                        sussocial.append(result[Info]["Sussocial"])
-                    else:
-                        sussocial.append("NO Info")
-                    if "Type" in result[Info]:
-                        socialtype.append(result[Info]["Type"])
-                    else:
-                        socialtype.append("NO Info")
-                    sp = Info.split("-")
-                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
-                    date.append(d)
-                    key.append(Info)
-                    count.append(i)
-                    i += 1
-        return render_template('showinformation.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,show="ข้อมูลของประเภท")
+                    if (result[Info]["Sussocial"] == Sussocial):
+                        if "Name" in result[Info]:
+                            name.append(result[Info]["Name"])
+                        else:
+                            name.append("NO Info")
+                        if "Case" in result[Info]:
+                            case.append(result[Info]["Case"])
+                        else:
+                            case.append("NO Info")
+                        if "Susname" in result[Info]:
+                            susname.append(result[Info]["Susname"])
+                        else:
+                            susname.append("NO Info")
+                        if "Sussocial" in result[Info]:
+                            sussocial.append(result[Info]["Sussocial"])
+                        else:
+                            sussocial.append("NO Info")
+                        if "Type" in result[Info]:
+                            socialtype.append(result[Info]["Type"])
+                        else:
+                            socialtype.append("NO Info")
+                        sp = Info.split("-")
+                        d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+                        date.append(d)
+                        key.append(Info)
+                        count.append(i)
+                        i += 1
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของประเภท")
     except:
         return render_template('no_data.html')
+
 
 @app.route("/InformationFromType_search_type=<typee>", methods=['GET'])
 def API_Showtype(typee):
@@ -523,7 +540,7 @@ def API_Showtype(typee):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name,case,susname,sussocial,socialtype)
+        return return_json(name, case, susname, sussocial, socialtype)
 
     except:
         return render_template('no_data.html')
@@ -589,7 +606,7 @@ def showData():
             key.append(Info)
             count.append(i)
             i += 1
-    return render_template('index.html',name=name,case=case,susname=susname,sussocial=sussocial,socialtype=socialtype,date=date,count=count,key=key,age=age,other=other,email=email,tel=tel)
+    return render_template('index.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, age=age, other=other, email=email, tel=tel)
 
 
 @app.route("/InsertData")
@@ -637,17 +654,19 @@ def insert():
         name_sum = userfname+'_'+userlname
         # img = request.files['image']
         img = request.files.getlist("image")
-        k=1
+        k = 1
         for i in img:
             filename = secure_filename(i.filename)
             i.save('upload/'+name_sum+"_"+time+filename)
-            cred = credentials.Certificate('anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
-            firebase_admin.initialize_app(cred, {'storageBucket': 'anres-test.appspot.com'})
+            cred = credentials.Certificate(
+                'anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
+            firebase_admin.initialize_app(
+                cred, {'storageBucket': 'anres-test.appspot.com'})
             bucket = storage.bucket()
             blob = bucket.blob(name_sum+'/'+time+"T"+filename)
             blob.upload_from_filename('upload/'+name_sum+"_"+time+filename)
             firebase.put(pth, name="Image"+str(k), data=time+"T"+filename)
-            k+=1
+            k += 1
         return render_template('Thanks.html')
 
 

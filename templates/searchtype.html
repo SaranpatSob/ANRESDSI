@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SearchType</title>
+    <title>Insert Data</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -13,24 +13,81 @@
 
 <body>
     <div class="container">
-        <h1>ค้นหาด้วยคดี</h1>
+        <h1>ค้นหาด้วยประเภทของแอพลิเคชัน</h1>
         <form action="{{ url_for('Showtype') }}" method="post">
-            <div class="form-group">
-                <label for="Type">ประเภทของคดี</label>
-                <br>
-                <input type="radio" name="Type" value="Facebook"> Facebook
-                <br>
-                <input type="radio" name="Type" value="E-mail"> E-mail
-                <br>
-                <input type="radio" name="Type" value="Line"> Line
-                <br>
-                <input type="radio" name="Type" value="Website"> Website
-                <br>
+            <label for="Type">ประเภทของแอพลิเคชัน</label>
+            <select class="form-control" name="Type" onchange="selecttype(value)">
+                <option value="Facebook">Facebook</option>
+                <option value="E-mail">E-mail</option>
+                <option value="Line">Line</option>
+                <option value="Website">Website</option>
+            </select>
+            <div id="facebook">
+                <div class="form-group">
+                    <label for="Susfacebook">ชื่อใน Facebook ของผู้ต้องสงสัย</label>
+                    <input type="text" class="form-control" name="Susfacebook">
+                </div>
+            </div>
+            <div id="email" style="display:none">
+                <div class="form-group">
+                    <label for="Susemail">Email ของผู้ต้องสงสัย</label>
+                    <input type="email" class="form-control" name="Susemail">
+                </div>
+            </div>
+            <div id="website" style="display:none">
+                <div class="form-group">
+                    <label for="Susurl">URL ของผู้ต้องสงสัย</label>
+                    <input type="url" class="form-control" name="Susurl">
+                </div>
+            </div>
+            <div id="line" style="display:none">
+                <div class="form-group">
+                    <label for="Susline">ชื่อใน Line ของผู้ต้องสงสัย</label>
+                    <input type="text" class="form-control" name="Susline">
+                </div>
             </div>
             <a class="btn btn-success" href="/">กลับหน้าแรก</a>
             <button type="submit" class="pull-right btn btn-primary">ค้นหา</button>
         </form>
     </div>
 </body>
+
+<script>
+    var fb = document.getElementById("facebook");
+    var em = document.getElementById("email");
+    var ws = document.getElementById("website");
+    var li = document.getElementById("line");
+    function selecttype(value) {
+        if (value == "Facebook") {
+            console.log(value);
+            fb.style.display = "";
+            em.style.display = "none";
+            ws.style.display = "none";
+            li.style.display = "none";
+        }
+        else if (value == "E-mail") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "";
+            ws.style.display = "none";
+            li.style.display = "none";
+        }
+        else if (value == "Website") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "none";
+            ws.style.display = "";
+            li.style.display = "none";
+        }
+        else if (value == "Line") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "none";
+            ws.style.display = "none";
+            li.style.display = "";
+        }
+    }
+</script>
+
 
 </html>
