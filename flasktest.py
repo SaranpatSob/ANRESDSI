@@ -607,11 +607,18 @@ def insert():
         usertel = request.form['usertel']
         CaseType = request.form['Type']
         Case = request.form['Case']
-        Sussocial = request.form['Sussocial']
         Susfname = request.form['Susfname']
         Suslname = request.form['Suslname']
         Other = request.form['Other']
         username = userfname+'_'+userlname
+        if (CaseType == "Facebook"):
+            Sussocial = request.form['Susfacebook']
+        elif (CaseType == "E-mail"):
+            Sussocial = request.form['Susemail']
+        elif (CaseType == "Website"):
+            Sussocial = request.form['Susurl']
+        else:
+            Sussocial = request.form['Susline']
         if ((Susfname != '-') and (Suslname != '-')):
             Susname = Susfname+'_'+Suslname
         else:
