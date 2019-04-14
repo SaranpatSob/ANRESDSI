@@ -35,19 +35,39 @@
                 <label for="usertel">เบอร์โทรศัพท์ของคุณ</label>
                 <input type="text" class="form-control" name="usertel">
             </div>
+            
             <div class="form-group">
                 <label for="Type">ประเภทของแอพลิเคชัน</label>
-                <select class="form-control" name="Type">
+                <select class="form-control" name="Type" onchange="selecttype(value)">
                     <option value="Facebook">Facebook</option>
                     <option value="E-mail">E-mail</option>
                     <option value="Line">Line</option>
                     <option value="Website">Website</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="Sussocial">ผู้ต้องสงสัย (ตัวอย่างเช่น ชื่อ Facebook, E-mail, LineID(หรือชื่อ Line), Link ของ
-                    Website)</label>
-                <input type="text" class="form-control" name="Sussocial">
+            <div id="facebook">
+                <div class="form-group">
+                    <label for="Sussocial">ชื่อใน Facebook ของผู้ต้องสงสัย</label>
+                    <input type="text" class="form-control" name="Sussocial">
+                </div>
+            </div>
+            <div id="email" style="display:none">
+                <div class="form-group">
+                    <label for="Sussocial">Email ของผู้ต้องสงสัย</label>
+                    <input type="email" class="form-control" name="Sussocial">
+                </div>
+            </div>
+            <div id="website" style="display:none">
+                <div class="form-group">
+                    <label for="Sussocial">URL ของผู้ต้องสงสัย</label>
+                    <input type="url" class="form-control" name="Sussocial">
+                </div>
+            </div>
+            <div id="line" style="display:none">
+                <div class="form-group">
+                    <label for="Sussocial">ชื่อใน Line ของผู้ต้องสงสัย</label>
+                    <input type="text" class="form-control" name="Sussocial">
+                </div>
             </div>
             <div class="form-group">
                 <label for="Susfname">ชื่อของผู้ต้องสงสัย (ถ้าไม่ทราบใส่ "-" ) </label>
@@ -91,5 +111,44 @@
         </form>
     </div>
 </body>
+
+<script>
+    var fb = document.getElementById("facebook");
+    var em = document.getElementById("email");
+    var ws = document.getElementById("website");
+    var li = document.getElementById("line");
+    function selecttype(value) 
+    {
+        if (value == "Facebook") {
+            console.log(value);
+            fb.style.display = "";
+            em.style.display = "none";
+            ws.style.display = "none";
+            li.style.display = "none";
+        }
+        else if (value == "E-mail") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "";
+            ws.style.display = "none";
+            li.style.display = "none";
+        }
+        else if (value == "Website") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "none";
+            ws.style.display = "";
+            li.style.display = "none";
+        }
+        else if (value == "Line") {
+            console.log(value);
+            fb.style.display = "none";
+            em.style.display = "none";
+            ws.style.display = "none";
+            li.style.display = "";
+        }
+    }
+</script>
+
 
 </html>
