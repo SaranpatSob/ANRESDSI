@@ -69,7 +69,9 @@ def Showuser():
                     else:
                         case.append("NO Info")
                     if "Susname" in result[Info]:
-                        susname.append(result[Info]["Susname"])
+                        temp = result[Info]["Susname"].split('_')
+                        nt = temp[0]+" "+temp[1]
+                        susname.append(nt)
                     else:
                         susname.append("NO Info")
                     if "Sussocial" in result[Info]:
@@ -95,8 +97,8 @@ def Showuser():
 @app.route("/InformationFromUser_search_fname=<fname>&&sname=<sname>", methods=['GET'])
 def API_Showuser(fname, sname):
     try:
-        userfname = fname
-        userlname = sname
+        userfname = fname.lower()
+        userlname = sname.lower()
         username = userfname+'_'+userlname
         result = firebase.get('/users', None)
         name = []
@@ -110,9 +112,11 @@ def API_Showuser(fname, sname):
         i = 0
         for Info in result:
             if (result[Info] != None):
-                if (result[Info]["Name"] == username):
+                if (result[Info]["Name"].lower() == username):
                     if "Name" in result[Info]:
-                        name.append(result[Info]["Name"])
+                        temp = result[Info]["Name"].split('_')
+                        nt = temp[0]+' '+temp[1]
+                        name.append(nt)
                     else:
                         name.append("NO Info")
                     if "Case" in result[Info]:
@@ -170,7 +174,9 @@ def Showsusname():
                     else:
                         case.append("NO Info")
                     if "Susname" in result[Info]:
-                        susname.append(result[Info]["Susname"])
+                        temp = result[Info]["Susname"].split('_')
+                        nt = temp[0]+" "+temp[1]
+                        susname.append(nt)
                     else:
                         susname.append("NO Info")
                     if "Sussocial" in result[Info]:
@@ -211,7 +217,7 @@ def API_Showsusname(fname, sname):
         i = 0
         for Info in result:
             if (result[Info] != None):
-                if (result[Info]["Susname"] == Susname):
+                if (result[Info]["Susname"].lower() == Susname.lower()):
                     if "Name" in result[Info]:
                         name.append(result[Info]["Name"])
                     else:
@@ -269,7 +275,9 @@ def Showcase():
                     else:
                         case.append("NO Info")
                     if "Susname" in result[Info]:
-                        susname.append(result[Info]["Susname"])
+                        temp = result[Info]["Susname"].split('_')
+                        nt = temp[0]+" "+temp[1]
+                        susname.append(nt)
                     else:
                         susname.append("NO Info")
                     if "Sussocial" in result[Info]:
@@ -308,7 +316,7 @@ def API_Showcase(case):
         i = 0
         for Info in result:
             if (result[Info] != None):
-                if (result[Info]["Case"] == Case):
+                if (result[Info]["Case"].lower() == Case.lower()):
                     if "Name" in result[Info]:
                         name.append(result[Info]["Name"])
                     else:
@@ -357,7 +365,7 @@ def Showdate():
         i = 0
         for Info in result:
             sp = Info.split("-")
-            dsp = Date.split("-")
+            dsp = Date.split("_")
             if ((dsp[0] == sp[2]) and (dsp[1] == sp[1]) and (dsp[2] == sp[0])):
                 if (result[Info] != None):
                     if "Name" in result[Info]:
@@ -385,10 +393,58 @@ def Showdate():
                     key.append(Info)
                     count.append(i)
                     i += 1
-                    return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
-
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
     except:
-        return "Don't Have any Day that you want"
+        # flash("Don't Have any Day that you want")
+        return render_template('no_data.html')
+
+    # try:
+    #     result = firebase.get('/users', None)
+    #     name = []
+    #     sussocial = []
+    #     case = []
+    #     susname = []
+    #     socialtype = []
+    #     count = []
+    #     date = []
+    #     key = []
+    #     i = 0
+    #     for Info in result:
+    #         sp = Info.split("-")
+    #         dsp = Date.split("-")
+    #         if ((dsp[0] == sp[2]) and (dsp[1] == sp[1]) and (dsp[2] == sp[0])):
+    #             if (result[Info] != None):
+    #                 if "Name" in result[Info]:
+    #                     name.append(result[Info]["Name"])
+    #                 else:
+    #                     name.append("NO Info")
+    #                 if "Case" in result[Info]:
+    #                     case.append(result[Info]["Case"])
+    #                 else:
+    #                     case.append("NO Info")
+    #                 if "Susname" in result[Info]:
+    #                     temp = result[Info]["Susname"].split('_')
+    #                     nt = temp[0]+" "+temp[1]
+    #                     susname.append(nt)
+    #                 else:
+    #                     susname.append("NO Info")
+    #                 if "Sussocial" in result[Info]:
+    #                     sussocial.append(result[Info]["Sussocial"])
+    #                 else:
+    #                     sussocial.append("NO Info")
+    #                 if "Type" in result[Info]:
+    #                     socialtype.append(result[Info]["Type"])
+    #                 else:
+    #                     socialtype.append("NO Info")
+    #                 d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+    #                 date.append(d)
+    #                 key.append(Info)
+    #                 count.append(i)
+    #                 i += 1
+    #                 return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
+
+    # except:
+    #     return render_template("no_data.html")
 
 
 @app.route("/InformationFromDate_search_date=<date>", methods=['GET'])
@@ -444,6 +500,7 @@ def API_Showdate(date):
 @app.route("/InformationFromType", methods=['POST'])
 def Showtype():
     try:
+        result = firebase.get('/users', None)
         Type = request.form['Type']
         if (Type == "Facebook"):
             Sussocial = request.form['Susfacebook']
@@ -475,7 +532,9 @@ def Showtype():
                         else:
                             case.append("NO Info")
                         if "Susname" in result[Info]:
-                            susname.append(result[Info]["Susname"])
+                            temp = result[Info]["Susname"].split('_')
+                            nt = temp[0]+" "+temp[1]
+                            susname.append(nt)
                         else:
                             susname.append("NO Info")
                         if "Sussocial" in result[Info]:
@@ -497,11 +556,20 @@ def Showtype():
         return render_template('no_data.html')
 
 
-@app.route("/InformationFromType_search_type=<typee>", methods=['GET'])
-def API_Showtype(typee):
+@app.route("/InformationFromType_search_type=<typee>&&sussocial=<sussocialinp>", methods=['GET'])
+def API_Showtype(typee,sussocialinp):
     try:
-        Type = typee
         result = firebase.get('/users', None)
+        Type = typee
+        # if (Type == "Facebook"):
+        #     Sussocial = request.form['Susfacebook']
+        # elif (Type == "E-mail"):
+        #     Sussocial = request.form['Susemail']
+        # elif (Type == "Website"):
+        #     Sussocial = request.form['Susurl']
+        # else:
+        #     Sussocial = request.form['Susline']
+        Sussocial = sussocialinp
         name = []
         sussocial = []
         case = []
@@ -513,37 +581,38 @@ def API_Showtype(typee):
         i = 0
         for Info in result:
             if (result[Info] != None):
-                if (result[Info]["Type"] == Type):
-                    if "Name" in result[Info]:
-                        name.append(result[Info]["Name"])
-                    else:
-                        name.append("NO Info")
-                    if "Case" in result[Info]:
-                        case.append(result[Info]["Case"])
-                    else:
-                        case.append("NO Info")
-                    if "Susname" in result[Info]:
-                        susname.append(result[Info]["Susname"])
-                    else:
-                        susname.append("NO Info")
-                    if "Sussocial" in result[Info]:
-                        sussocial.append(result[Info]["Sussocial"])
-                    else:
-                        sussocial.append("NO Info")
-                    if "Type" in result[Info]:
-                        socialtype.append(result[Info]["Type"])
-                    else:
-                        socialtype.append("NO Info")
-                    sp = Info.split("-")
-                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
-                    date.append(d)
-                    key.append(Info)
-                    count.append(i)
-                    i += 1
+                if (result[Info]["Type"].lower() == Type.lower()):
+                    if (result[Info]["Sussocial"] == Sussocial):
+                        if "Name" in result[Info]:
+                            name.append(result[Info]["Name"])
+                        else:
+                            name.append("NO Info")
+                        if "Case" in result[Info]:
+                            case.append(result[Info]["Case"])
+                        else:
+                            case.append("NO Info")
+                        if "Susname" in result[Info]:
+                            susname.append(result[Info]["Susname"])
+                        else:
+                            susname.append("NO Info")
+                        if "Sussocial" in result[Info]:
+                            sussocial.append(result[Info]["Sussocial"])
+                        else:
+                            sussocial.append("NO Info")
+                        if "Type" in result[Info]:
+                            socialtype.append(result[Info]["Type"])
+                        else:
+                            socialtype.append("NO Info")
+                        sp = Info.split("-")
+                        d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+                        date.append(d)
+                        key.append(Info)
+                        count.append(i)
+                        i += 1
         return return_json(name, case, susname, sussocial, socialtype)
-
     except:
         return render_template('no_data.html')
+
 
 
 @app.route("/ShowAll")
@@ -573,7 +642,9 @@ def showData():
             else:
                 case.append("NO Info")
             if "Susname" in result[Info]:
-                susname.append(result[Info]["Susname"])
+                temp = result[Info]["Susname"].split('_')
+                nt = temp[0]+" "+temp[1]
+                susname.append(nt)
             else:
                 susname.append("NO Info")
             if "Sussocial" in result[Info]:
