@@ -1,19 +1,25 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash,jsonify,make_response,session
 from firebase import firebase
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 import datetime
 from firebase_admin import storage, credentials
 from werkzeug import secure_filename
 import firebase_admin
 from return_json import return_json
+import os
 
 firebase = firebase.FirebaseApplication(
     'https://test-database-anres.firebaseio.com', None)
 app = Flask(__name__)
 
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/uploads'
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+patch_request_class(app) 
 
 @app.route("/")
 def Home():
-    return render_template('home.html')
+    return render_template('home1.html')
 
 
 @app.route("/Search/user")
@@ -141,7 +147,10 @@ def API_Showuser(fname, sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name, case, susname, sussocial, socialtype)
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except:
         return render_template('no_data.html')
 
@@ -244,7 +253,10 @@ def API_Showsusname(fname, sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name, case, susname, sussocial, socialtype)
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except:
         return render_template('no_data.html')
 
@@ -343,8 +355,10 @@ def API_Showcase(case):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name, case, susname, sussocial, socialtype)
-
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except:
         return render_template('no_data.html')
 
@@ -365,7 +379,7 @@ def Showdate():
         i = 0
         for Info in result:
             sp = Info.split("-")
-            dsp = Date.split("_")
+            dsp = Date.split("-")
             if ((dsp[0] == sp[2]) and (dsp[1] == sp[1]) and (dsp[2] == sp[0])):
                 if (result[Info] != None):
                     if "Name" in result[Info]:
@@ -491,7 +505,10 @@ def API_Showdate(date):
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return return_json(name, case, susname, sussocial, socialtype)
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except:
         # flash("Don't Have any Day that you want")
         return render_template('no_data.html')
@@ -609,7 +626,10 @@ def API_Showtype(typee,sussocialinp):
                         key.append(Info)
                         count.append(i)
                         i += 1
-        return return_json(name, case, susname, sussocial, socialtype)
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp.headers['Content-Type'] = 'application/json'
+        resp.headers['Access-Control-Allow-Origin'] = '*'
+        return resp
     except:
         return render_template('no_data.html')
 
@@ -642,9 +662,10 @@ def showData():
             else:
                 case.append("NO Info")
             if "Susname" in result[Info]:
-                temp = result[Info]["Susname"].split('_')
-                nt = temp[0]+" "+temp[1]
-                susname.append(nt)
+                # temp = result[Info]["Susname"].split('_')
+                # nt = temp[0]+" "+temp[1]
+                # susname.append(nt)
+                susname.append(result[Info]["Susname"])
             else:
                 susname.append("NO Info")
             if "Sussocial" in result[Info]:
@@ -678,6 +699,75 @@ def showData():
             count.append(i)
             i += 1
     return render_template('index.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, age=age, other=other, email=email, tel=tel)
+
+@app.route("/ShowAll_API",methods = ['GET'])
+def APIshowData():
+    result = firebase.get('/users', None)
+    name = []
+    sussocial = []
+    age = []
+    case = []
+    susname = []
+    socialtype = []
+    count = []
+    date = []
+    other = []
+    email = []
+    tel = []
+    key = []
+    i = 0
+    for Info in result:
+        if result[Info] != None:
+            if "Name" in result[Info]:
+                name.append(result[Info]["Name"])
+            else:
+                name.append("NO Info")
+            if "Case" in result[Info]:
+                case.append(result[Info]["Case"])
+            else:
+                case.append("NO Info")
+            if "Susname" in result[Info]:
+                # temp = result[Info]["Susname"].split('_')
+                # nt = temp[0]+" "+temp[1]
+                # susname.append(nt)
+                susname.append(result[Info]["Susname"])
+            else:
+                susname.append("NO Info")
+            if "Sussocial" in result[Info]:
+                sussocial.append(result[Info]["Sussocial"])
+            else:
+                sussocial.append("NO Info")
+            if "Type" in result[Info]:
+                socialtype.append(result[Info]["Type"])
+            else:
+                socialtype.append("NO Info")
+            if "Age" in result[Info]:
+                age.append(result[Info]["Age"])
+            else:
+                age.append("NO Info")
+            if "Other" in result[Info]:
+                other.append(result[Info]["Other"])
+            else:
+                other.append("NO Info")
+            if "E-mail" in result[Info]:
+                email.append(result[Info]["E-mail"])
+            else:
+                email.append("NO Info")
+            if "Tel" in result[Info]:
+                tel.append(result[Info]["Tel"])
+            else:
+                tel.append("NO Info")
+            sp = Info.split("-")
+            d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+            date.append(d)
+            key.append(Info)
+            count.append(i)
+            i += 1
+    resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+    resp.headers['Content-Type'] = 'application/json'
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+    # return result
 
 
 @app.route("/InsertData")
@@ -724,11 +814,13 @@ def insert():
         firebase.put(pth, name="Other", data=Other)
         name_sum = userfname+'_'+userlname
         # img = request.files['image']
-        img = request.files.getlist("image")
+        img = request.files("image")
         k = 1
         for i in img:
-            filename = secure_filename(i.filename)
-            i.save('upload/'+name_sum+"_"+time+filename)
+            fille = request.files.get(i)
+            filename = photos.save(fille,name=fille.filename)
+            # filename = secure_filename(i.filename)
+            # i.save('upload/'+name_sum+"_"+time+filename)
             cred = credentials.Certificate(
                 'anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
             firebase_admin.initialize_app(
