@@ -40,7 +40,10 @@ case_type = ["Facebook","E-mail","Website","Line"]
 name = []
 
 for i in range(len(df_fname)):
-    name.append(df_fname[i]+' '+df_lname[i])
+    l = random.randint(0,len(df_lname)-1)
+    if(l == i):
+        l+=1
+    name.append(df_fname[i]+' '+df_lname[l])
 
 # Sussocial = df_email[0].split('@')[0]
 # print(Sussocial)
@@ -55,7 +58,7 @@ for i in range(len(df_fname)):
 
 # random.randint()
 
-for i in range(100):
+for i in range(10):
     time = gen_date()
     pth = '/users/'+time
     uname = random.randint(0,len(name)-1)
@@ -67,6 +70,7 @@ for i in range(100):
     if sname == uname:
         sname+=1
     t = random.randint(0,len(case_type)-1)
+    m = random.randint(0,4)
 
     username = name[uname]
     firebase.put(pth, name="Name", data=username)
@@ -82,7 +86,10 @@ for i in range(100):
     userage = uage
     firebase.put(pth, name="Age", data=userage)
 
-    CaseType = case_type[t]
+    if case[c] == "Email_scam":
+        CaseType = "E-mail"
+    else:
+        CaseType = case_type[t]
     firebase.put(pth, name="Type", data=CaseType)
 
     if CaseType == "Line":
@@ -92,7 +99,7 @@ for i in range(100):
     elif CaseType == "E-mail":
         Sussocial = df_email[sname]
     else:
-        Sussocial = 'www.'+((df_email[sname].split('@')[0]).split('.')[0])+'.com'
+        Sussocial = 'http://www.'+((df_email[sname].split('@')[0]).split('.')[0])+'.com'
 
     firebase.put(pth, name="Sussocial", data=Sussocial)
 
@@ -103,6 +110,18 @@ for i in range(100):
     firebase.put(pth, name="Case", data=Case)
 
     firebase.put(pth, name="Other", data=Other)
+
+    if(m == 0):
+        firebase.put(pth, name="Gender", data="M")
+    
+    elif (m == 1):
+        firebase.put(pth, name="Gender", data="A")
+    
+    else:
+        firebase.put(pth, name="Gender", data="F")
+
+
+    
 
     print(i,'=',username,useremail,usertel,userage,CaseType,Sussocial,Susname,Case,Other)
 

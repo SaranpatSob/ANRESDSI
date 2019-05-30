@@ -17,6 +17,12 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app) 
 
+def set_susname(susname):
+    for i in range(len(susname)):
+            if len(susname[i].split('_')) > 1:
+                susname[i] = susname[i].split('_')[0] + ' '  + susname[i].split('_')[1]
+    return susname
+
 @app.route("/")
 def Home():
     return render_template('home1.html')
@@ -160,7 +166,8 @@ def Showsusname():
     try:
         susfname = request.form['susfname']
         suslname = request.form['suslname']
-        Susname = susfname+'_'+suslname
+        Susname = susfname+' '+suslname
+        Susname1 = susfname+'_'+suslname
         result = firebase.get('/users', None)
         name = []
         sussocial = []
@@ -173,60 +180,7 @@ def Showsusname():
         i = 0
         for Info in result:
             if (result[Info] != None):
-                if (result[Info]["Susname"] == Susname):
-                    if "Name" in result[Info]:
-                        name.append(result[Info]["Name"])
-                    else:
-                        name.append("NO Info")
-                    if "Case" in result[Info]:
-                        case.append(result[Info]["Case"])
-                    else:
-                        case.append("NO Info")
-                    if "Susname" in result[Info]:
-                        temp = result[Info]["Susname"].split('_')
-                        nt = temp[0]+" "+temp[1]
-                        susname.append(nt)
-                    else:
-                        susname.append("NO Info")
-                    if "Sussocial" in result[Info]:
-                        sussocial.append(result[Info]["Sussocial"])
-                    else:
-                        sussocial.append("NO Info")
-                    if "Type" in result[Info]:
-                        socialtype.append(result[Info]["Type"])
-                    else:
-                        socialtype.append("NO Info")
-                    sp = Info.split("-")
-                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
-                    date.append(d)
-                    key.append(Info)
-                    count.append(i)
-                    i += 1
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของผู้ต้องสงสัย")
-
-    except:
-        return render_template('no_data.html')
-
-
-@app.route("/InformationFromSuspect_search_fname=<fname>&&sname=<sname>", methods=['GET'])
-def API_Showsusname(fname, sname):
-    try:
-        susfname = fname
-        suslname = sname
-        Susname = susfname+'_'+suslname
-        result = firebase.get('/users', None)
-        name = []
-        sussocial = []
-        case = []
-        susname = []
-        socialtype = []
-        count = []
-        date = []
-        key = []
-        i = 0
-        for Info in result:
-            if (result[Info] != None):
-                if (result[Info]["Susname"].lower() == Susname.lower()):
+                if (result[Info]["Susname"].lower() == Susname.lower() or result[Info]["Susname"].lower() == Susname1.lower()):
                     if "Name" in result[Info]:
                         name.append(result[Info]["Name"])
                     else:
@@ -253,6 +207,60 @@ def API_Showsusname(fname, sname):
                     key.append(Info)
                     count.append(i)
                     i += 1
+        susname = set_susname(susname)
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของผู้ต้องสงสัย")
+
+    except:
+        return render_template('no_data.html')
+
+
+@app.route("/InformationFromSuspect_search_fname=<fname>&&sname=<sname>", methods=['GET'])
+def API_Showsusname(fname, sname):
+    try:
+        susfname = fname
+        suslname = sname
+        Susname = susfname+' '+suslname
+        Susname1 = susfname+'_'+suslname
+        result = firebase.get('/users', None)
+        name = []
+        sussocial = []
+        case = []
+        susname = []
+        socialtype = []
+        count = []
+        date = []
+        key = []
+        i = 0
+        for Info in result:
+            if (result[Info] != None):
+                if (result[Info]["Susname"].lower() == Susname.lower() or result[Info]["Susname"].lower() == Susname1.lower()):
+                    if "Name" in result[Info]:
+                        name.append(result[Info]["Name"])
+                    else:
+                        name.append("NO Info")
+                    if "Case" in result[Info]:
+                        case.append(result[Info]["Case"])
+                    else:
+                        case.append("NO Info")
+                    if "Susname" in result[Info]:
+                        susname.append(result[Info]["Susname"])
+                    else:
+                        susname.append("NO Info")
+                    if "Sussocial" in result[Info]:
+                        sussocial.append(result[Info]["Sussocial"])
+                    else:
+                        sussocial.append("NO Info")
+                    if "Type" in result[Info]:
+                        socialtype.append(result[Info]["Type"])
+                    else:
+                        socialtype.append("NO Info")
+                    sp = Info.split("-")
+                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+                    date.append(d)
+                    key.append(Info)
+                    count.append(i)
+                    i += 1
+        susname = set_susname(susname)
         resp = make_response(return_json(name, case, susname, sussocial, socialtype))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
@@ -263,7 +271,7 @@ def API_Showsusname(fname, sname):
 
 @app.route("/InformationFromCase", methods=['POST'])
 def Showcase():
-    try:
+    #try:
         Case = request.form['Case']
         result = firebase.get('/users', None)
         name = []
@@ -283,57 +291,13 @@ def Showcase():
                     else:
                         name.append("NO Info")
                     if "Case" in result[Info]:
-                        case.append(result[Info]["Case"])
-                    else:
-                        case.append("NO Info")
-                    if "Susname" in result[Info]:
-                        temp = result[Info]["Susname"].split('_')
-                        nt = temp[0]+" "+temp[1]
-                        susname.append(nt)
-                    else:
-                        susname.append("NO Info")
-                    if "Sussocial" in result[Info]:
-                        sussocial.append(result[Info]["Sussocial"])
-                    else:
-                        sussocial.append("NO Info")
-                    if "Type" in result[Info]:
-                        socialtype.append(result[Info]["Type"])
-                    else:
-                        socialtype.append("NO Info")
-                    sp = Info.split("-")
-                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
-                    date.append(d)
-                    key.append(Info)
-                    count.append(i)
-                    i += 1
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของคดี")
-
-    except:
-        return render_template('no_data.html')
-
-
-@app.route("/InformationFromCase_search_case=<case>", methods=['GET'])
-def API_Showcase(case):
-    try:
-        Case = case
-        result = firebase.get('/users', None)
-        name = []
-        sussocial = []
-        case = []
-        susname = []
-        socialtype = []
-        count = []
-        date = []
-        key = []
-        i = 0
-        for Info in result:
-            if (result[Info] != None):
-                if (result[Info]["Case"].lower() == Case.lower()):
-                    if "Name" in result[Info]:
-                        name.append(result[Info]["Name"])
-                    else:
-                        name.append("NO Info")
-                    if "Case" in result[Info]:
+                        # temp = result[Info]["Case"]
+                        # temp = temp.split('_')
+                        # anss = ''
+                        # for i in range(len(temp)):
+                        #     anss = anss+temp[i]+" "
+                        # case.append(anss[0:len(anss)])
+                        # return str(type(result[Info]["Case"])).split("'")[1]
                         case.append(result[Info]["Case"])
                     else:
                         case.append("NO Info")
@@ -355,12 +319,68 @@ def API_Showcase(case):
                     key.append(Info)
                     count.append(i)
                     i += 1
+        susname = set_susname(susname)
+        # return str(name)
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของคดี")
+
+    #except:
+        #return render_template('no_data.html')
+
+
+@app.route("/InformationFromCase_search_case=<case>", methods=['GET'])
+def API_Showcase(case):
+    try:
+        Case = case
+        result = firebase.get('/users', None)
+        name = []
+        sussocial = []
+        case = []
+        susname = []
+        socialtype = []
+        count = []
+        date = []
+        key = []
+        i = 0
+        for Info in result:
+            if (result[Info] != None):
+                if ((result[Info]['Case']).lower() == Case.lower()):
+                    if "Name" in result[Info]:
+                        name.append(result[Info]["Name"])
+                    else:
+                        name.append("NO Info")
+                    if "Case" in result[Info]:
+                        case.append(result[Info]["Case"])
+                    else:
+                        case.append("NO Info")
+                    if "Susname" in result[Info]:
+                        susname.append(result[Info]["Susname"])
+                    else:
+                        susname.append("NO Info")
+                    if "Sussocial" in result[Info]:
+                        sussocial.append(result[Info]["Sussocial"])
+                    else:
+                        sussocial.append("NO Info")
+                    if "Type" in result[Info]:
+                        socialtype.append(result[Info]["Type"])
+                    else:
+                        socialtype.append("NO Info")
+                    sp = Info.split("-")
+                    
+                    d = sp[2]+'/'+sp[1]+'/20'+sp[0]
+                    
+                    date.append(d)
+                    key.append(Info)
+                    count.append(i)
+                    i += 1
+
+        susname = set_susname(susname)
         resp = make_response(return_json(name, case, susname, sussocial, socialtype))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
-    except:
+    except :
         return render_template('no_data.html')
+   
 
 
 @app.route("/InformationFromDate", methods=['POST'])
@@ -407,6 +427,7 @@ def Showdate():
                     key.append(Info)
                     count.append(i)
                     i += 1
+        susname = set_susname(susname)
         return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
     except:
         # flash("Don't Have any Day that you want")
@@ -505,6 +526,7 @@ def API_Showdate(date):
                     key.append(Info)
                     count.append(i)
                     i += 1
+        susname = set_susname(susname)
         resp = make_response(return_json(name, case, susname, sussocial, socialtype))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
@@ -516,7 +538,7 @@ def API_Showdate(date):
 
 @app.route("/InformationFromType", methods=['POST'])
 def Showtype():
-    try:
+    #try:
         result = firebase.get('/users', None)
         Type = request.form['Type']
         if (Type == "Facebook"):
@@ -549,9 +571,7 @@ def Showtype():
                         else:
                             case.append("NO Info")
                         if "Susname" in result[Info]:
-                            temp = result[Info]["Susname"].split('_')
-                            nt = temp[0]+" "+temp[1]
-                            susname.append(nt)
+                            susname.append(result[Info]["Susname"])
                         else:
                             susname.append("NO Info")
                         if "Sussocial" in result[Info]:
@@ -568,9 +588,10 @@ def Showtype():
                         key.append(Info)
                         count.append(i)
                         i += 1
+        susname = set_susname(susname)
         return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของประเภท")
-    except:
-        return render_template('no_data.html')
+    # except:
+    #     return render_template('no_data.html')
 
 
 @app.route("/InformationFromType_search_type=<typee>&&sussocial=<sussocialinp>", methods=['GET'])
@@ -626,6 +647,7 @@ def API_Showtype(typee,sussocialinp):
                         key.append(Info)
                         count.append(i)
                         i += 1
+        susname = set_susname(susname)
         resp = make_response(return_json(name, case, susname, sussocial, socialtype))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
@@ -698,6 +720,7 @@ def showData():
             key.append(Info)
             count.append(i)
             i += 1
+    susname = set_susname(susname)
     return render_template('index.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, age=age, other=other, email=email, tel=tel)
 
 @app.route("/ShowAll_API",methods = ['GET'])
@@ -798,7 +821,7 @@ def insert():
         else:
             Sussocial = request.form['Susline']
         if ((Susfname != '-') and (Suslname != '-')):
-            Susname = Susfname+'_'+Suslname
+            Susname = Susfname+' '+Suslname
         else:
             Susname = '-'
         time = datetime.datetime.now().strftime("%y-%m-%d-%H-%M-%S")
