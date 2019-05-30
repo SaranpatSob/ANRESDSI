@@ -1,6 +1,6 @@
 import json
 
-def return_json(name,case,susname,sussocial,typee):
+def return_json(name,case,susname,sussocial,typee,gender):
     ans = []
     for i in range(max(len(name),len(case),len(susname),len(sussocial),len(typee))):
         ans.append({})
@@ -9,6 +9,7 @@ def return_json(name,case,susname,sussocial,typee):
         ans[i].setdefault("SusName",susname[i])
         ans[i].setdefault("SusSocial",sussocial[i])
         ans[i].setdefault("Type",typee[i])
+        ans[i].setdefault("Gender",gender[i])
     #print(ans)
     # a = json.dumps(ans,ensure_ascii=False)
     return json.dumps(ans,ensure_ascii=False)
@@ -24,4 +25,4 @@ def return_json(name,case,susname,sussocial,typee):
 
 if __name__ == "__main__":
     Date = ['ก',3,4,12,7,5,3,11,1,4,6,7,9,10]
-    print(return_json(Date,Date,Date,Date,Date))
+    print(return_json(Date,Date,Date,Date,Date,Date))

@@ -68,6 +68,7 @@ def Showuser():
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -94,13 +95,23 @@ def Showuser():
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของ User")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของ User", gender=gender)
 
     except:
         return render_template('no_data.html')
@@ -121,6 +132,7 @@ def API_Showuser(fname, sname):
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -147,13 +159,23 @@ def API_Showuser(fname, sname):
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -177,6 +199,7 @@ def Showsusname():
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -201,6 +224,16 @@ def Showsusname():
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
@@ -208,7 +241,7 @@ def Showsusname():
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของผู้ต้องสงสัย")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, gender = gender, show="ข้อมูลของผู้ต้องสงสัย")
 
     except:
         return render_template('no_data.html')
@@ -230,6 +263,7 @@ def API_Showsusname(fname, sname):
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -254,6 +288,16 @@ def API_Showsusname(fname, sname):
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
@@ -261,7 +305,7 @@ def API_Showsusname(fname, sname):
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -282,6 +326,7 @@ def Showcase():
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -313,6 +358,16 @@ def Showcase():
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
@@ -321,7 +376,7 @@ def Showcase():
                     i += 1
         susname = set_susname(susname)
         # return str(name)
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของคดี")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, gender = gender, show="ข้อมูลของคดี")
 
     #except:
         #return render_template('no_data.html')
@@ -340,6 +395,7 @@ def API_Showcase(case):
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -364,6 +420,16 @@ def API_Showcase(case):
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     sp = Info.split("-")
                     
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
@@ -374,7 +440,7 @@ def API_Showcase(case):
                     i += 1
 
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -396,6 +462,7 @@ def Showdate():
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             sp = Info.split("-")
@@ -422,13 +489,23 @@ def Showdate():
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของวันที่แจ้งเหตุ")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, gender=gender, show="ข้อมูลของวันที่แจ้งเหตุ")
     except:
         # flash("Don't Have any Day that you want")
         return render_template('no_data.html')
@@ -495,6 +572,7 @@ def API_Showdate(date):
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             sp = Info.split("-")
@@ -521,13 +599,23 @@ def API_Showdate(date):
                         socialtype.append(result[Info]["Type"])
                     else:
                         socialtype.append("NO Info")
+                    if "Gender" in result[Info]:
+                        if(result[Info]["Gender"] == "M"):
+                            gender.append("Male")
+                        elif (result[Info]["Gender"] == "F"):
+                            gender.append("Female")
+                        else:
+                            gender.append("Alternative sex")
+                        # gender.append(result[Info]["Gender"])
+                    else:
+                        gender.append("NO Info")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -557,6 +645,7 @@ def Showtype():
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -582,6 +671,16 @@ def Showtype():
                             socialtype.append(result[Info]["Type"])
                         else:
                             socialtype.append("NO Info")
+                        if "Gender" in result[Info]:
+                            if(result[Info]["Gender"] == "M"):
+                                gender.append("Male")
+                            elif (result[Info]["Gender"] == "F"):
+                                gender.append("Female")
+                            else:
+                                gender.append("Alternative sex")
+                            # gender.append(result[Info]["Gender"])
+                        else:
+                            gender.append("NO Info")
                         sp = Info.split("-")
                         d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                         date.append(d)
@@ -589,7 +688,7 @@ def Showtype():
                         count.append(i)
                         i += 1
         susname = set_susname(susname)
-        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, show="ข้อมูลของประเภท")
+        return render_template('showinformation.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, gender = gender, show="ข้อมูลของประเภท")
     # except:
     #     return render_template('no_data.html')
 
@@ -616,6 +715,7 @@ def API_Showtype(typee,sussocialinp):
         count = []
         date = []
         key = []
+        gender = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -641,6 +741,16 @@ def API_Showtype(typee,sussocialinp):
                             socialtype.append(result[Info]["Type"])
                         else:
                             socialtype.append("NO Info")
+                        if "Gender" in result[Info]:
+                            if(result[Info]["Gender"] == "M"):
+                                gender.append("Male")
+                            elif (result[Info]["Gender"] == "F"):
+                                gender.append("Female")
+                            else:
+                                gender.append("Alternative sex")
+                            # gender.append(result[Info]["Gender"])
+                        else:
+                            gender.append("NO Info")
                         sp = Info.split("-")
                         d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                         date.append(d)
@@ -648,7 +758,7 @@ def API_Showtype(typee,sussocialinp):
                         count.append(i)
                         i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype,gender))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -672,6 +782,7 @@ def showData():
     email = []
     tel = []
     key = []
+    gender = []
     i = 0
     for Info in result:
         if result[Info] != None:
@@ -714,6 +825,16 @@ def showData():
                 tel.append(result[Info]["Tel"])
             else:
                 tel.append("NO Info")
+            if "Gender" in result[Info]:
+                if(result[Info]["Gender"] == "M"):
+                    gender.append("Male")
+                elif (result[Info]["Gender"] == "F"):
+                    gender.append("Female")
+                else:
+                    gender.append("Alternative sex")
+                # # gender.append(result[Info]["Gender"])
+            else:
+                gender.append("NO Info")
             sp = Info.split("-")
             d = sp[2]+'/'+sp[1]+'/20'+sp[0]
             date.append(d)
@@ -721,7 +842,7 @@ def showData():
             count.append(i)
             i += 1
     susname = set_susname(susname)
-    return render_template('index.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, age=age, other=other, email=email, tel=tel)
+    return render_template('index.html', name=name, case=case, susname=susname, sussocial=sussocial, socialtype=socialtype, date=date, count=count, key=key, age=age, other=other, email=email, tel=tel, gender = gender)
 
 @app.route("/ShowAll_API",methods = ['GET'])
 def APIshowData():
@@ -738,6 +859,7 @@ def APIshowData():
     email = []
     tel = []
     key = []
+    gender = []
     i = 0
     for Info in result:
         if result[Info] != None:
@@ -780,13 +902,23 @@ def APIshowData():
                 tel.append(result[Info]["Tel"])
             else:
                 tel.append("NO Info")
+            if "Gender" in result[Info]:
+                if(result[Info]["Gender"] == "M"):
+                    gender.append("Male")
+                elif (result[Info]["Gender"] == "F"):
+                    gender.append("Female")
+                else:
+                    gender.append("Alternative sex")
+                # # gender.append(result[Info]["Gender"])
+            else:
+                gender.append("NO Info")
             sp = Info.split("-")
             d = sp[2]+'/'+sp[1]+'/20'+sp[0]
             date.append(d)
             key.append(Info)
             count.append(i)
             i += 1
-    resp = make_response(return_json(name, case, susname, sussocial, socialtype))
+    resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
     resp.headers['Content-Type'] = 'application/json'
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
