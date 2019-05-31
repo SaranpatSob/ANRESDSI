@@ -1,8 +1,8 @@
 import json
 
-def return_json(name,case,susname,sussocial,typee,gender):
+def return_json(name,case,susname,sussocial,typee,gender,age):
     ans = []
-    for i in range(max(len(name),len(case),len(susname),len(sussocial),len(typee))):
+    for i in range(len(name)):
         ans.append({})
         ans[i].setdefault("Name",name[i])
         ans[i].setdefault("Case",case[i])
@@ -10,6 +10,7 @@ def return_json(name,case,susname,sussocial,typee,gender):
         ans[i].setdefault("SusSocial",sussocial[i])
         ans[i].setdefault("Type",typee[i])
         ans[i].setdefault("Gender",gender[i])
+        ans[i].setdefault("Age",age[i])
     #print(ans)
     # a = json.dumps(ans,ensure_ascii=False)
     return json.dumps(ans,ensure_ascii=False)

@@ -25,7 +25,7 @@ def set_susname(susname):
 
 @app.route("/")
 def Home():
-    return render_template('home1.html')
+    return render_template('Home.html')
 
 
 @app.route("/Search/user")
@@ -101,7 +101,7 @@ def Showuser():
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
@@ -133,6 +133,7 @@ def API_Showuser(fname, sname):
         date = []
         key = []
         gender = []
+        age = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -165,17 +166,21 @@ def API_Showuser(fname, sname):
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
+                    if "Age" in result[Info]:
+                        age.append(result[Info]["Age"])
+                    else:
+                        age.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender, age))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -230,7 +235,7 @@ def Showsusname():
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
@@ -264,6 +269,7 @@ def API_Showsusname(fname, sname):
         date = []
         key = []
         gender = []
+        age = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -294,10 +300,14 @@ def API_Showsusname(fname, sname):
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
+                    if "Age" in result[Info]:
+                        age.append(result[Info]["Age"])
+                    else:
+                        age.append("NO Info")
                     sp = Info.split("-")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
@@ -305,7 +315,7 @@ def API_Showsusname(fname, sname):
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender,age))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -364,7 +374,7 @@ def Showcase():
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
@@ -396,6 +406,7 @@ def API_Showcase(case):
         date = []
         key = []
         gender = []
+        age =[]
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -426,10 +437,14 @@ def API_Showcase(case):
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
+                    if "Age" in result[Info]:
+                        age.append(result[Info]["Age"])
+                    else:
+                        age.append("NO Info")
                     sp = Info.split("-")
                     
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
@@ -440,7 +455,7 @@ def API_Showcase(case):
                     i += 1
 
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender,age))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -495,7 +510,7 @@ def Showdate():
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
@@ -573,6 +588,7 @@ def API_Showdate(date):
         date = []
         key = []
         gender = []
+        age = []
         i = 0
         for Info in result:
             sp = Info.split("-")
@@ -605,17 +621,21 @@ def API_Showdate(date):
                         elif (result[Info]["Gender"] == "F"):
                             gender.append("Female")
                         else:
-                            gender.append("Alternative sex")
+                            gender.append("Alternative")
                         # gender.append(result[Info]["Gender"])
                     else:
                         gender.append("NO Info")
+                    if "Age" in result[Info]:
+                        age.append(result[Info]["Age"])
+                    else:
+                        age.append("NO Info")
                     d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                     date.append(d)
                     key.append(Info)
                     count.append(i)
                     i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender,age))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -677,7 +697,7 @@ def Showtype():
                             elif (result[Info]["Gender"] == "F"):
                                 gender.append("Female")
                             else:
-                                gender.append("Alternative sex")
+                                gender.append("Alternative")
                             # gender.append(result[Info]["Gender"])
                         else:
                             gender.append("NO Info")
@@ -716,6 +736,7 @@ def API_Showtype(typee,sussocialinp):
         date = []
         key = []
         gender = []
+        age = []
         i = 0
         for Info in result:
             if (result[Info] != None):
@@ -747,10 +768,14 @@ def API_Showtype(typee,sussocialinp):
                             elif (result[Info]["Gender"] == "F"):
                                 gender.append("Female")
                             else:
-                                gender.append("Alternative sex")
+                                gender.append("Alternative")
                             # gender.append(result[Info]["Gender"])
                         else:
                             gender.append("NO Info")
+                        if "Age" in result[Info]:
+                            age.append(result[Info]["Age"])
+                        else:
+                            age.append("NO Info")
                         sp = Info.split("-")
                         d = sp[2]+'/'+sp[1]+'/20'+sp[0]
                         date.append(d)
@@ -758,7 +783,7 @@ def API_Showtype(typee,sussocialinp):
                         count.append(i)
                         i += 1
         susname = set_susname(susname)
-        resp = make_response(return_json(name, case, susname, sussocial, socialtype,gender))
+        resp = make_response(return_json(name, case, susname, sussocial, socialtype,gender,age))
         resp.headers['Content-Type'] = 'application/json'
         resp.headers['Access-Control-Allow-Origin'] = '*'
         return resp
@@ -783,6 +808,7 @@ def showData():
     tel = []
     key = []
     gender = []
+    age = []
     i = 0
     for Info in result:
         if result[Info] != None:
@@ -831,7 +857,7 @@ def showData():
                 elif (result[Info]["Gender"] == "F"):
                     gender.append("Female")
                 else:
-                    gender.append("Alternative sex")
+                    gender.append("Alternative")
                 # # gender.append(result[Info]["Gender"])
             else:
                 gender.append("NO Info")
@@ -860,6 +886,7 @@ def APIshowData():
     tel = []
     key = []
     gender = []
+    age = []
     i = 0
     for Info in result:
         if result[Info] != None:
@@ -908,17 +935,21 @@ def APIshowData():
                 elif (result[Info]["Gender"] == "F"):
                     gender.append("Female")
                 else:
-                    gender.append("Alternative sex")
+                    gender.append("Alternative")
                 # # gender.append(result[Info]["Gender"])
             else:
                 gender.append("NO Info")
+            if "Age" in result[Info]:
+                age.append(result[Info]["Age"])
+            else:
+                age.append("NO Info")
             sp = Info.split("-")
             d = sp[2]+'/'+sp[1]+'/20'+sp[0]
             date.append(d)
             key.append(Info)
             count.append(i)
             i += 1
-    resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender))
+    resp = make_response(return_json(name, case, susname, sussocial, socialtype, gender,age))
     resp.headers['Content-Type'] = 'application/json'
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
@@ -927,7 +958,15 @@ def APIshowData():
 
 @app.route("/InsertData")
 def showForm():
-    return render_template('adddata.html')
+    return render_template('Report.html')
+
+@app.route("/SuspectShow")
+def susshow():
+    return render_template('Suspect.html')
+
+@app.route("/ShowGraph")
+def showgraph():
+    return render_template("Graph.html")
 
 
 @app.route("/insert", methods=['POST'])
