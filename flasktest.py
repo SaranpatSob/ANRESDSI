@@ -7,6 +7,7 @@ from werkzeug import secure_filename
 import firebase_admin
 from return_json import return_json
 import os
+import sys
 
 firebase = firebase.FirebaseApplication(
     'https://test-database-anres.firebaseio.com', None)
@@ -971,6 +972,7 @@ def showgraph():
 
 @app.route("/insert", methods=['POST'])
 def insert():
+    print('Success',file=sys.stderr)
     if request.method == 'POST':
         userfname = request.form['userfname']
         userlname = request.form['userlname']
