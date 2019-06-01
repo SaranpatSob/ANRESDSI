@@ -969,6 +969,10 @@ def susshow():
 def showgraph():
     return render_template("Graph.html")
 
+@app.route("/ThankYou")
+def thank():
+    return render_template("Thanks.html")
+
 
 @app.route("/insert", methods=['POST'])
 def insert():
@@ -1016,6 +1020,7 @@ def insert():
         # img = request.files("image")
         k = 1
         for i in img:
+            
             fille = i
             filenames = photos.save(fille,name=fille.filename)
             # filename = secure_filename(i.filename)

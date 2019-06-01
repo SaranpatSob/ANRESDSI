@@ -5,6 +5,14 @@
     color: white;
 }
 
+#slide_left {
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    font-size: 20px;
+    /*color: white;*/
+}
+
 .anime {
     animation-name: shade;
     animation-duration: 1.5s;
