@@ -14,9 +14,10 @@ firebase = firebase.FirebaseApplication(
 app = Flask(__name__)
 
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/uploads'
+
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
-patch_request_class(app) 
+patch_request_class(app)
 
 def set_susname(susname):
     for i in range(len(susname)):
@@ -791,6 +792,10 @@ def API_Showtype(typee,sussocialinp):
     except:
         return render_template('no_data.html')
 
+@app.route("/CurrentPath")
+def returnpath():
+    current_path = os.path.abspath(':')
+    return os.getcwd()
 
 
 @app.route("/ShowAll")
@@ -973,10 +978,16 @@ def showgraph():
 def thank():
     return render_template("Thanks.html")
 
+@app.route("/firebase_test<l>")
+def test(l):
+    firebase.put("/test", name="Name", data=l)
+    return "Success"
+
 
 @app.route("/insert", methods=['POST'])
 def insert():
-    print('Success',file=sys.stderr)
+    # return "hello"
+    # print('Success',file=sys.stderr)
     if request.method == 'POST':
         userfname = request.form['userfname']
         userlname = request.form['userlname']
@@ -1003,7 +1014,9 @@ def insert():
         else:
             Susname = '-'
         time = datetime.datetime.now().strftime("%y-%m-%d-%H-%M-%S")
+
         pth = '/users/'+time
+        
         firebase.put(pth, name="Name", data=username)
         firebase.put(pth, name="E-mail", data=useremail)
         firebase.put(pth, name="Tel", data=usertel)
@@ -1014,27 +1027,46 @@ def insert():
         firebase.put(pth, name="Case", data=Case)
         firebase.put(pth, name="Other", data=Other)
         firebase.put(pth, name="Gender", data=Gender)
+
+        # return "hello"
+
+        current_path = os.path.abspath(':')
+        current_path = current_path.split(":")[0]
+
+        
         name_sum = userfname+'_'+userlname
         # img = request.files['image']
         img = request.files.getlist("image")
         # img = request.files("image")
         k = 1
-        for i in img:
-            
-            fille = i
-            filenames = photos.save(fille,name=fille.filename)
-            # filename = secure_filename(i.filename)
-            i.save('upload/'+name_sum+"_"+time+filenames+"_"+str(k))
+        
+        try:
+            cred = credentials.Certificate(
+                current_path+'mysite/anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
+        except Exception:
             cred = credentials.Certificate(
                 'anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
-            firebase_admin.initialize_app(
-                cred, {'storageBucket': 'anres-test.appspot.com'})
+
+        firebase_admin.initialize_app(
+            cred, {'storageBucket': 'anres-test.appspot.com'})
+        
+        for i in img:
+
+            fille = i
+            filenames = photos.save(fille,name=(time+"_T_"+fille.filename))
+            
+            # filename = secure_filename(i.filename)
+            # i.save('upload/'+name_sum+"_"+time+filenames+"_"+str(k))
+            
             bucket = storage.bucket()
             blob = bucket.blob(name_sum+'/'+time+"T"+filenames)
-            blob.upload_from_filename('upload/'+name_sum+"_"+time+filenames+"_"+str(k))
-            firebase.put(pth, name="Image"+str(k), data=time+"T"+filenames+"_"+str(k))
+            # blob.upload_from_filename('../uploads/'+name_sum+"_"+time+filenames+"_"+str(k))
+
+            blob.upload_from_filename(current_path+'uploads/'+time+"_T_"+fille.filename)
+            firebase.put(pth, name="Image"+str(k), data=time+"T"+fille.filename)
             k += 1
-        return render_template('Thanks.html')
+        os.remove(os.getcwd() + '/uploads/'+time+"_T_"+fille.filename)
+        return  render_template("Thanks.html")
 
 
 @app.route("/delete/<string:key_data>", methods=['GET'])
