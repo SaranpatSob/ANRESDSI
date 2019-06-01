@@ -984,7 +984,8 @@ def insert():
         Susfname = request.form['Susfname']
         Suslname = request.form['Suslname']
         Other = request.form['Other']
-        username = userfname+'_'+userlname
+        Gender = request.form['Gender']
+        username = userfname+' '+userlname
         if (CaseType == "Facebook"):
             Sussocial = request.form['Susfacebook']
         elif (CaseType == "E-mail"):
@@ -1008,23 +1009,25 @@ def insert():
         firebase.put(pth, name="Susname", data=Susname)
         firebase.put(pth, name="Case", data=Case)
         firebase.put(pth, name="Other", data=Other)
+        firebase.put(pth, name="Gender", data=Gender)
         name_sum = userfname+'_'+userlname
         # img = request.files['image']
-        img = request.files("image")
+        img = request.files.getlist("image")
+        # img = request.files("image")
         k = 1
         for i in img:
-            fille = request.files.get(i)
-            filename = photos.save(fille,name=fille.filename)
+            fille = i
+            filenames = photos.save(fille,name=fille.filename)
             # filename = secure_filename(i.filename)
-            # i.save('upload/'+name_sum+"_"+time+filename)
+            i.save('upload/'+name_sum+"_"+time+filenames+"_"+str(k))
             cred = credentials.Certificate(
                 'anres-test-firebase-adminsdk-4z967-07c79cd90f.json')
             firebase_admin.initialize_app(
                 cred, {'storageBucket': 'anres-test.appspot.com'})
             bucket = storage.bucket()
-            blob = bucket.blob(name_sum+'/'+time+"T"+filename)
-            blob.upload_from_filename('upload/'+name_sum+"_"+time+filename)
-            firebase.put(pth, name="Image"+str(k), data=time+"T"+filename)
+            blob = bucket.blob(name_sum+'/'+time+"T"+filenames)
+            blob.upload_from_filename('upload/'+name_sum+"_"+time+filenames+"_"+str(k))
+            firebase.put(pth, name="Image"+str(k), data=time+"T"+filenames+"_"+str(k))
             k += 1
         return render_template('Thanks.html')
 

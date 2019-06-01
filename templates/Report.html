@@ -240,46 +240,46 @@
         <div id="section2" class="form">
             <div class="row">
                 <div class="container">
-                    <form action="/insert" method="post">
+                    <form action="/insert" method="post" enctype="multipart/form-data">
 
                         <h3 style="margin: 10px 0 20px 0">ข้อมูลของคุณ</h3>
                         <div class="row">
                             <div class="col-50">
-                                <label for="fname"><i class="fa fa-user" style="margin: 0 5px 0 5px"></i> ชื่อ</label>
+                                <label for="userfname"><i class="fa fa-user" style="margin: 0 5px 0 5px"></i> ชื่อ</label>
                                 <input type="text" id="fname" class="form-control" name="userfname" placeholder="Name"
                                     required>
                             </div>
                             <div class="col-50">
-                                <label for="adr"> นามสกุล</label>
+                                <label for="userlname"> นามสกุล</label>
                                 <input type="text" id="adr" name="userlname" class="form-control" placeholder="Lastname"
                                 required>
                             </div>
 
 
                             <div class="col-25">
-                                <label for="sex"><i class="fa fa-mars" style="margin: 0 5px 0 0px"></i>เพศ</label>
+                                <label for="Gender"><i class="fa fa-mars" style="margin: 0 5px 0 0px"></i>เพศ</label>
                                 <select id="sex" class="form-control" name="Gender"
                                     style="width: 100%; margin-top: 10px">
-                                    <option value="Male">ชาย</option>
-                                    <option value="Female">หญิง</option>
-                                    <option value="Alternative">เพศทางเลือก</option>
+                                    <option value="M">ชาย</option>
+                                    <option value="F">หญิง</option>
+                                    <option value="A">เพศทางเลือก</option>
                                 </select>
                             </div>
                             <div class="col-25">
-                                <label for="age"><i class="fa fa-child" style="margin: 0 5px 0 5px"></i>
+                                <label for="userage"><i class="fa fa-child" style="margin: 0 5px 0 5px"></i>
                                     อายุ</label>
-                                <input type="number" id="age" name="Age" class="form-control" placeholder="" required>
+                                <input type="number" id="age" name="userage" class="form-control" placeholder="" required>
                             </div>
 
 
                             <div class="col-50">
-                                <label for="tel"><i class="fas fa-phone-square" style="margin: 0 5px 0 5px"></i>
+                                <label for="usertel"><i class="fas fa-phone-square" style="margin: 0 5px 0 5px"></i>
                                     เบอร์โทร</label>
                                 <input type="tel" id="tel" name="usertel" class="form-control"
                                     placeholder="Tel. Number" required>
                             </div>
                             <div class="col-50">
-                                <label for="email"><i class="fa fa-envelope" style="margin: 0 5px 0 5px"></i>
+                                <label for="useremail"><i class="fa fa-envelope" style="margin: 0 5px 0 5px"></i>
                                     E-mail</label>
                                 <input type="email" id="email" name="useremail" class="form-control"
                                     placeholder="name@example.com" required>
@@ -288,18 +288,18 @@
                         <h3 style="margin: 10px 0 20px 0">ข้อมูลของผู้ต้องสงสัย</h3>
                         <div class="row">
                             <div class="col-50">
-                                <label for="cname"><i class="fas fa-user-ninja"
+                                <label for="Susfname"><i class="fas fa-user-ninja"
                                         style="margin: 0 5px 0 5px"></i>ชื่อ</label>
                                 <input type="text" id="cname" name="Susfname" class="form-control"
                                     placeholder="ถ้าไม่ทราบใส่ -" required>
                             </div>
                             <div class="col-50">
-                                <label for="ccnum">นามสกุล</label>
+                                <label for="Suslname">นามสกุล</label>
                                 <input type="text" id="ccnum" name="Suslname" class="form-control"
                                     placeholder="ถ้าไม่ทราบใส่ -" required>
                             </div>
                             <div id="choose_parent" class="col-50">
-                                <label for="choose">แอพพลิเคชัน</label>
+                                <label for="Type">แอพพลิเคชัน</label>
                                 <div class="form-inline">
                                     <select id="choose" class="form-control" name="Type"
                                         style="width: 25%; margin-right: 0px; margin-bottom: 20px;"
