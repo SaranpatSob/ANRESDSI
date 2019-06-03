@@ -149,14 +149,20 @@
 
     </script>
     <script>
-        var i = 0;
-        var txt = 'Online Scamming & Phishing Detection System';
+        var i = 0,j =0;
+        var txt = 'Online Scamming & Phishing' ;
+        var txt1 = 'Detection System';
         var speed = 60;
 
         function typeWriter() {
             if (i < txt.length) {
                 document.getElementById("writing").innerHTML += txt.charAt(i);
                 i++;
+                setTimeout(typeWriter, speed);
+            }
+            else if (j < txt1.length) {
+                document.getElementById("writing1").innerHTML += txt1.charAt(j);
+                j++;
                 setTimeout(typeWriter, speed);
             }
         }
@@ -169,7 +175,7 @@
 
         <div class="header text-center">
             <p class="middle" style="transform: translate(-50%,-60%); color: white ;padding: 5vw">
-                <b id="writing"></b><br></p>
+                <b id="writing"></b><br><b id="writing1"></b><br></p>
             <div id="slide_down">
                 <a href="#section2" style="color: white; text-decoration: none">
                     <i id="s1" class="fas fa-chevron-down anime"></i>

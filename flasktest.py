@@ -1065,7 +1065,8 @@ def insert():
             blob.upload_from_filename(current_path+'uploads/'+time+"_T_"+fille.filename)
             firebase.put(pth, name="Image"+str(k), data=time+"T"+fille.filename)
             k += 1
-        os.remove(os.getcwd() + '/uploads/'+time+"_T_"+fille.filename)
+            os.remove(os.getcwd() + '/uploads/'+time+"_T_"+fille.filename)
+            
         return  render_template("Thanks.html")
 
 
