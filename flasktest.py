@@ -394,10 +394,10 @@ def Showcase():
         #return render_template('no_data.html')
 
 
-@app.route("/InformationFromCase_search_case=<case>", methods=['GET'])
-def API_Showcase(case):
+@app.route("/InformationFromCase_search_case=<casee>", methods=['GET'])
+def API_Showcase(casee):
     try:
-        Case = case
+        Case = casee.lower()
         result = firebase.get('/users', None)
         name = []
         sussocial = []

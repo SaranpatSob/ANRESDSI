@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Graph</title>
+    <title>STATISTICS</title>
     <!-- including ECharts file -->
     <script src="{{ url_for('static',filename='echarts.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -78,7 +78,7 @@
 
     <div class="header text-center">
         <p class="middle" style="transform: translate(-50%,-60%); color: white ;padding: 5vw">
-            <b>GRAPH</b><br><span style="font-size: 20px;">กราฟแสดงสถิติ</span></p>
+            <b>STATISTICS</b><br><span style="font-size: 20px;">กราฟแสดงสถิติ</span></p>
         <div id="slide_down">
             <a href="#section2" style="color: white; text-decoration: none">
                 <i id="s1" class="fas fa-chevron-down anime"></i>
@@ -109,7 +109,7 @@
         var c = { romance: 0, hacking: 0, selling: 0, fake: 0, email: 0, scam: 0, defam: 0, black: 0 }
         var t_face = 0, t_line = 0, t_email = 0, t_web = 0;
         var t = { face: 0, line: 0, email: 0, web: 0 }
-        var gend = { "19": { Male: 0, Female: 0, Alternative: 0 }, "20": { Male: 0, Female: 0, Alternative: 0 }, "21": { Male: 0, Female: 0, Alternative: 0 }, "22": { Male: 0, Female: 0, Alternative: 0 }, "23": { Male: 0, Female: 0, Alternative: 0 }, "24": { Male: 0, Female: 0, Alternative: 0 } }
+        var gend = {"lowerthan20":{Male: 0, Female: 0, Alternative: 0 }, "21to30": { Male: 0, Female: 0, Alternative: 0 }, "31to40": { Male: 0, Female: 0, Alternative: 0 }, "41to50": { Male: 0, Female: 0, Alternative: 0 }, "51to60": { Male: 0, Female: 0, Alternative: 0 }, "61to70": { Male: 0, Female: 0, Alternative: 0 }, "over70": { Male: 0, Female: 0, Alternative: 0 } }
         //////////////////////////////////////////////////////////////////////
         var data;
         $.getJSON("http://noppanutt.pythonanywhere.com/ShowAll_API", function (json) {
@@ -158,12 +158,73 @@
                 else if (data[i]["Type"] == "Website") {
                     t["web"]++;
                 }
-                if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
-                    gend[data[i]["Age"]]["Alternative"]++;
+
+                if(data[i]["Age"] <= 20){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["lowerthan20"]["Alternative"]++;
+                    }
+                    else{
+                        gend["lowerthan20"][data[i]["Gender"]]++;
+                    }
                 }
-                else {
-                    gend[data[i]["Age"]][data[i]["Gender"]]++;
+                else if(data[i]["Age"] > 20 && data[i]["Age"] <= 30){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["21to30"]["Alternative"]++;
+                    }
+                    else{
+                        gend["21to30"][data[i]["Gender"]]++;
+                    }
                 }
+                else if(data[i]["Age"] > 30 && data[i]["Age"] <= 40){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["31to40"]["Alternative"]++;
+                    }
+                    else{
+                        gend["31to40"][data[i]["Gender"]]++;
+                    }
+                }
+                else if(data[i]["Age"] > 40 && data[i]["Age"] <= 50){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["41to50"]["Alternative"]++;
+                    }
+                    else{
+                        gend["41to50"][data[i]["Gender"]]++;
+                    }
+                }
+                
+                else if(data[i]["Age"] > 50 && data[i]["Age"] <= 60){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["51to60"]["Alternative"]++;
+                    }
+                    else{
+                        gend["51to60"][data[i]["Gender"]]++;
+                    }
+                }
+
+                else if(data[i]["Age"] > 60 && data[i]["Age"] <= 70){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["61to70"]["Alternative"]++;
+                    }
+                    else{
+                        gend["61to70"][data[i]["Gender"]]++;
+                    }
+                }
+                else if(data[i]["Age"] > 70){
+                    if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                        gend["over70"]["Alternative"]++;
+                    }
+                    else{
+                        gend["over70"][data[i]["Gender"]]++;
+                    }
+                }
+                
+
+                // if (data[i]["Gender"] != "Male" && data[i]["Gender"] != "Female") {
+                //     gend[data[i]["Age"]]["Alternative"]++;
+                // }
+                // else {
+                //     gend[data[i]["Age"]][data[i]["Gender"]]++;
+                // }
 
 
             }
@@ -307,12 +368,13 @@
                 dataset: {
                     source: [
                         ['gender', 'Male', 'Female', 'Alternative'],
-                        ['19', gend["19"]["Male"], gend["19"]["Female"], gend["19"]["Alternative"]],
-                        ['20', gend["20"]["Male"], gend["20"]["Female"], gend["20"]["Alternative"]],
-                        ['21', gend["21"]["Male"], gend["21"]["Female"], gend["21"]["Alternative"]],
-                        ['22', gend["22"]["Male"], gend["22"]["Female"], gend["22"]["Alternative"]],
-                        ['23', gend["23"]["Male"], gend["23"]["Female"], gend["23"]["Alternative"]],
-                        ['24', gend["24"]["Male"], gend["24"]["Female"], gend["24"]["Alternative"]]
+                        ['<= 20',gend["lowerthan20"]["Male"],gend["lowerthan20"]["Female"],gend["lowerthan20"]["Alternative"]],
+                        ['21 - 30',gend["21to30"]["Male"],gend["21to30"]["Female"],gend["21to30"]["Alternative"]],
+                        ['31 - 40',gend["31to40"]["Male"],gend["31to40"]["Female"],gend["31to40"]["Alternative"]],
+                        ['41 - 50',gend["41to50"]["Male"],gend["41to50"]["Female"],gend["41to50"]["Alternative"]],
+                        ['51 - 60',gend["51to60"]["Male"],gend["51to60"]["Female"],gend["51to60"]["Alternative"]],
+                        ['61 - 70',gend["61to70"]["Male"],gend["61to70"]["Female"],gend["61to70"]["Alternative"]],
+                        ['> 70',gend["over70"]["Male"],gend["over70"]["Female"],gend["over70"]["Alternative"]]
                     ]
                 },
                 xAxis: { type: 'category' },

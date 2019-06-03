@@ -32,29 +32,23 @@
         html {
             scroll-behavior: smooth;
         }
-
         .grid-container {
             display: grid;
-
             grid-template-columns: 16.65% 16.65% 16.65% 16.65% 16.65% auto;
             grid-gap: 1px;
             background-color: rgb(233, 233, 233);
             padding: 0px;
         }
-
         .grid-container>a {
-
             text-align: center;
             padding: 20px 0;
             font-size: 30px;
             text-decoration: none;
         }
-
         .header {
             grid-area: 1 / 1 / 5 / 7;
             /*Photo by Joanna Kosinska on Unsplash*/
             background-color: #CD003B;
-
             width: 100%;
             background-attachment: fixed;
             /* Center and scale the image nicely */
@@ -62,40 +56,30 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-
         .header>p {
             box-sizing: border-box;
             border: 3px solid #f1f1f1;
             width: 70%;
             font-size: 50px;
         }
-
         .middle {
             position: relative;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
         .form-control:focus {
             border-color: rgba(205, 0, 59, 0.8);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.13), 0 0 5px rgba(205, 0, 59, 0.6);
         }
-
-
-
         @media only screen and (min-width: 1000px) {
-
             .header>p {
                 font-size: 64px;
             }
-
         }
-
         .form {
             grid-area: 5 / 2 / 9 / 6;
         }
-
         .row {
             display: -ms-flexbox;
             /* IE10 */
@@ -105,38 +89,31 @@
             flex-wrap: wrap;
             margin: 0 0px;
         }
-
         .col-25 {
             -ms-flex: 25%;
             /* IE10 */
             flex: 25%;
         }
-
         .col-50 {
             -ms-flex: 50%;
             /* IE10 */
             flex: 50%;
         }
-
         .col-75 {
             -ms-flex: 75%;
             /* IE10 */
             flex: 75%;
         }
-
         .col-25,
         .col-50,
         .col-75 {
             padding: 0 16px;
         }
-
         .container {
-
             padding: 30px 20px 15px 20px;
             border: 1px solid lightgrey;
             border-radius: 3px;
         }
-
         input[type=text] {
             width: 100%;
             margin-bottom: 20px;
@@ -144,23 +121,14 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
-
-
-
         label {
             margin-bottom: 10px;
             display: block;
         }
-
-
-
-
-
         @media (max-width: 800px) {
             .row {
                 flex-direction: column;
             }
-
             .col-25 {
                 margin-bottom: 20px;
             }
@@ -177,7 +145,6 @@
         var i = 0;
         var txt = 'WELCOME TO OUR PROJECT.';
         var speed = 60;
-
         function typeWriter() {
             if (i < txt.length) {
                 document.getElementById("writing").innerHTML += txt.charAt(i);
@@ -187,36 +154,32 @@
         }
     </script>
     <script>
-
         function Show(social) {
             if (social == 'Facebook') {
-                var notface = $("#choose_parent input[name!=social_face]");
-                var face = $("#choose_parent input[name=social_face]");
-                notface.animate({ width: '0%' }).hide().val('');
-                face.show().animate({ width: '75%' });
+                var notface = $("#choose_parent input[id!=facebook]");
+                var face = $("#choose_parent input[id=facebook]");
+                notface.animate({ width: '0%' }).hide().val('').prop('required',false);
+                face.show().animate({ width: '75%' }).prop('required',true);;
             }
             else if (social == 'E-mail') {
-                var notmail = $("#choose_parent input[name!=social_mail]");
-                var mail = $("#choose_parent input[name=social_mail]");
-                notmail.animate({ width: '0%' }).hide().val('');
-                mail.show().animate({ width: '75%' });
+                var notmail = $("#choose_parent input[id!=e-mail]");
+                var mail = $("#choose_parent input[id=e-mail]");
+                notmail.animate({ width: '0%' }).hide().val('').prop('required',false);;
+                mail.show().animate({ width: '75%' }).prop('required',true);;
             }
             else if (social == 'Line') {
-                var notline = $("#choose_parent input[name!=social_line]");
-                var line = $("#choose_parent input[name=social_line]");
-                notline.animate({ width: '0%' }).hide().val('');
-                line.show().animate({ width: '75%' });
+                var notline = $("#choose_parent input[id!=line]");
+                var line = $("#choose_parent input[id=line]");
+                notline.animate({ width: '0%' }).hide().val('').prop('required',false);;
+                line.show().animate({ width: '75%' }).prop('required',true);;
             }
-
             else if (social == 'Website') {
-                var notweb = $("#choose_parent input[name!=social_web]");
-                var web = $("#choose_parent input[name=social_web]");
-                notweb.animate({ width: '0%' }).hide().val('');
-                web.show().animate({ width: '75%' });
+                var notweb = $("#choose_parent input[id!=web]");
+                var web = $("#choose_parent input[id=web]");
+                notweb.animate({ width: '0%' }).hide().val('').prop('required',false);;
+                web.show().animate({ width: '75%' }).prop('required',true);;
             }
         }
-
-
     </script>
 
 </head>

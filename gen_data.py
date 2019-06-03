@@ -12,7 +12,10 @@ def gen_date():
     d = str(random.randint(1,31))
     if len(d) == 1:
         d = '0'+d
-    h = str(random.randint(0,24))
+    month = str(random.randint(1,12))
+    if len(month) == 1:
+        month = '0'+month
+    h = str(random.randint(0,23))
     if len(h) == 1:
         h = '0'+h
     m = str(random.randint(0,60))
@@ -22,7 +25,7 @@ def gen_date():
     if len(s) == 1:
         s = '0'+s
 
-    time = '19-04-'+d+'-'+h+'-'+m+'-'+s
+    time = '19-'+month+'-'+d+'-'+h+'-'+m+'-'+s
     return time
 
 # time = datetime.datetime.now().strftime("%y-%m-%d-%H-%M-%S")
@@ -58,19 +61,19 @@ for i in range(len(df_fname)):
 
 # random.randint()
 
-for i in range(10):
+for i in range(1000):
     time = gen_date()
     pth = '/users/'+time
     uname = random.randint(0,len(name)-1)
     utel = random.randint(0,999999999)
-    uage = random.randint(19,24)
+    uage = random.randint(16,90)
     c = random.randint(0,len(case)-1)
     sname = random.randint(0,len(name)-1)
     Other = random_char(random.randint(10,24))
     if sname == uname:
         sname+=1
     t = random.randint(0,len(case_type)-1)
-    m = random.randint(0,4)
+    m = random.randint(0,100)
 
     username = name[uname]
     firebase.put(pth, name="Name", data=username)
@@ -111,17 +114,14 @@ for i in range(10):
 
     firebase.put(pth, name="Other", data=Other)
 
-    if(m == 0):
+    if(m <= 45):
         firebase.put(pth, name="Gender", data="M")
     
-    elif (m == 1):
-        firebase.put(pth, name="Gender", data="A")
+    elif (m <= 90):
+        firebase.put(pth, name="Gender", data="F")
     
     else:
-        firebase.put(pth, name="Gender", data="F")
-
-
-    
+        firebase.put(pth, name="Gender", data="A")
 
     print(i,'=',username,useremail,usertel,userage,CaseType,Sussocial,Susname,Case,Other)
 
