@@ -1141,11 +1141,11 @@ def check_phishing():
                 ans += i+'_'
             ans = ans[1:len(ans)-1]
             result = firebase.get("/phishing_data",ans)
-            print(ans,file=sys.stderr)
+            # print(ans,file=sys.stderr)
         if result is None:
-            return "No"
+            return render_template('detection.html',status = "เว็ปนีไซต์นี้ไม่มีในฐานข้อมูล")
         else:
-            return "Yes"
+            return render_template('detection.html',status = "เว็ปนี้มีในฐานข้อมูล")
 
 if __name__ == "__main__":
     app.run(debug=True)
