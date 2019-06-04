@@ -978,12 +978,6 @@ def showgraph():
 def thank():
     return render_template("Thanks.html")
 
-@app.route("/firebase_test<l>")
-def test(l):
-    firebase.put("/test", name="Name", data=l)
-    return "Success"
-
-
 @app.route("/insert", methods=['POST'])
 def insert():
     # return "hello"
@@ -1063,10 +1057,12 @@ def insert():
             # blob.upload_from_filename('../uploads/'+name_sum+"_"+time+filenames+"_"+str(k))
 
             blob.upload_from_filename(current_path+'uploads/'+time+"_T_"+fille.filename)
-            firebase.put(pth, name="Image"+str(k), data=time+"T"+fille.filename)
+            blob.make_public()
+            
+            firebase.put(pth,name="Image"+str(k), data=blob.public_url)
             k += 1
             os.remove(os.getcwd() + '/uploads/'+time+"_T_"+fille.filename)
-            
+
         return  render_template("Thanks.html")
 
 
@@ -1108,6 +1104,48 @@ def update():
         firebase.put(pth, name="Other", data=Other)
         return redirect(url_for('showData'))
 
+@app.route("/urlcheck")
+def urlcheck():
+    return render_template("detection.html")
+
+@app.route("/check_phishing",methods=['POST'])
+def check_phishing():
+    result = None
+    if request.method == 'POST':
+        check = request.form['detect']
+        if(check[:4] == "http"):
+            url = check.split('/')
+            url = url[2]
+            url = url.split('.')
+            ans = ''
+            for i in url:
+                ans += i+'_'
+            ans = ans[:len(ans)-1]
+            result = firebase.get("/phishing_data",ans)
+            print(result,file=sys.stderr)
+        elif(check[:4] != 'www.'):
+            url = check
+            url = url.split('.')
+            ans = ''
+            for i in url:
+                ans += i+'_'
+            ans = ans[:len(ans)-1]
+            result = firebase.get("/phishing_data",ans)
+            print(result,file=sys.stderr)
+        else:
+            url = check
+            url = url.split('.')
+            url[0] = ''
+            ans = ''
+            for i in url:
+                ans += i+'_'
+            ans = ans[1:len(ans)-1]
+            result = firebase.get("/phishing_data",ans)
+            print(ans,file=sys.stderr)
+        if result is None:
+            return "No"
+        else:
+            return "Yes"
 
 if __name__ == "__main__":
     app.run(debug=True)

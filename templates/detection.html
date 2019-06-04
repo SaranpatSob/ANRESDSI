@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Detection</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Kanit" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="font-family: 'Roboto', 'Kanit',sans-serif; background-color: rgb(194, 211, 248)">
+    <div clas="container">
+        <br>
+        <br>
+        <h1 align="center">Detection Phishing Website</h1>
+        <form action="/check_phishing" method="post" enctype="multipart/form-data"></form>
+            <div align="center">
+                <label for="detect"></label>
+                <input type="text" class="form-control" name="detect" placeholder="กรุณาใส่ url ของเว็ปไซต์ที่ท่านต้องการตรวจสอบ" style="width: 50% ; margin: 10% 0%" required>
+                <a class="pull-left btn btn-success" href="/" style="margin: 0% 10%">กลับหน้าแรก</a>
+                <button type="submit" class="pull-right btn btn-primary" style="margin: 0% 10%">สอบถามข้อมูล</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
