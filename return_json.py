@@ -1,6 +1,21 @@
 import json
 
-def return_json(name,case,susname,sussocial,typee,gender,age):
+def return_json(case,susname,sussocial,typee,gender,age):
+    ans = []
+    for i in range(len(case)):
+        ans.append({})
+        # ans[i].setdefault("Name",name[i])
+        ans[i].setdefault("Case",case[i])
+        ans[i].setdefault("SusName",susname[i])
+        ans[i].setdefault("SusSocial",sussocial[i])
+        ans[i].setdefault("Type",typee[i])
+        ans[i].setdefault("Gender",gender[i])
+        ans[i].setdefault("Age",age[i])
+    #print(ans)
+    # a = json.dumps(ans,ensure_ascii=False)
+    return json.dumps(ans,ensure_ascii=False)
+
+def return_json_for_admin(name,case,susname,sussocial,typee,gender,age,img):
     ans = []
     for i in range(len(name)):
         ans.append({})
@@ -11,6 +26,7 @@ def return_json(name,case,susname,sussocial,typee,gender,age):
         ans[i].setdefault("Type",typee[i])
         ans[i].setdefault("Gender",gender[i])
         ans[i].setdefault("Age",age[i])
+        ans[i].setdefault("Image",img[i])
     #print(ans)
     # a = json.dumps(ans,ensure_ascii=False)
     return json.dumps(ans,ensure_ascii=False)

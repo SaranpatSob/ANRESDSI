@@ -19,17 +19,22 @@ print(len(data_all))
 
 count = 0
 
-for i in data_all:
-    if count < 17948:
+i=0
+
+while i < len(data_all):
+# for i in range(len(data_all)):
+    if count < 100000:
         count+=1
         continue
-    if count > 20000:
+    if count > len(data_all):
         print("success")
         break
-    print(i+",count = "+str(count))
+    print(data_all[i]+",count = "+str(count))
     try:
-        firebase.put("/phishing_data",name=i,data=count)
+        firebase.put("/phishing_data",name=data_all[i],data=count)
+        i+=1
     except Exception:
+        i-=1
         continue
     count+=1
     

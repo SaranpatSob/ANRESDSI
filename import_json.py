@@ -18,12 +18,18 @@ for i in dt:
 print(len(data_all))
 
 count = 0
+i = 0
 
-for i in data_all:
-    if count < 10393:
+while i < (len(data_all)):
+    # print(i+",count = "+str(count))
+    try:
+        result = firebase.get("/phishing_data",data_all[i])
+        print(result)
+        if result is None:
+            print("Add  "+i+",count = "+str(count))
+            firebase.put("/phishing_data",name=data_all[i],data=count)
         count+=1
+        i+=1
+    except Exception:
         continue
-    print(i+",count = "+str(count))
-    firebase.put("/phishing_data",name=i,data=count)
-    count+=1
     

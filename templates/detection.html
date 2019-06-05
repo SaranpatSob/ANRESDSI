@@ -18,7 +18,7 @@
         <br>
         <br>
         <h1 align="center">Detection Phishing Website</h1>
-        <form action="/check_phishing" method="post" enctype="multipart/form-data"></form>
+        <form action="{{ url_for('check_phishing') }}" method="post" enctype="multipart/form-data">
             <div align="center">
                 <label for="detect"></label>
                 <input type="text" class="form-control" name="detect" placeholder="กรุณาใส่ url ของเว็ปไซต์ที่ท่านต้องการตรวจสอบ" style="width: 50% ; margin: 10% 0%" required>
