@@ -1081,6 +1081,18 @@ def delete(key_data):
     firebase.delete('/users', key_data)
     return redirect(url_for('showData'))
 
+@app.route("/ShowGraph")		
+def showgraph():		
+    return render_template("Graph.html")
+
+@app.route("/InsertData")		
+def showForm():		
+    return render_template('Report.html')
+
+@app.route("/SuspectShow")		
+def susshow():		
+    return render_template('Suspect.html')
+
 
 # @app.route("/update", methods=['POST'])
 # def update():
