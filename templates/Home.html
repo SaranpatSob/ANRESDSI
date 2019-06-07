@@ -17,6 +17,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/hover.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/scroll.css') }}" />
 
+    <link rel="stylesheet" type="text/css" href="hover.css" />
+    <link rel="stylesheet" type="text/css" href="animate.css" />
+
 
     <style>
         html {
@@ -68,7 +71,7 @@
         }
 
         .report {
-            grid-area: 5 / 1 / 7 / 7;
+            grid-area: 5 / 1 / 6 / 7;
             background-color: #CD003B;
         }
 
@@ -76,12 +79,12 @@
             grid-area: 7 / 1 / 8 / 7;
             background-color: #0C2044;
         }
-        /*
-        .find {
-            grid-area: 7 / 1 / 8 / 7;
-            background-color: #0C2044;
+        
+        .detect {
+            grid-area: 6 / 1 / 7 / 7;
+            background-color: rgb(214, 138, 38);
         }
-        */
+        
         .graph {
             grid-area: 8 / 1 / 9 / 7;
             background-color: #333333;
@@ -113,20 +116,20 @@
             }
 
             .suspect {
-                grid-area: 7 / 1 / 9 / 5;
+                grid-area: 5 / 5 / 9 / 7;
 
             }
             
             .graph {
-                grid-area: 5 / 5 / 9 / 7;
+                grid-area: 7 / 1 / 9 / 3;
 
             }
-            /*
-            .find {
-                grid-area: 5 / 5 / 9 / 7;
+            
+            .detect {
+                grid-area: 7 / 3 / 9 / 5;
 
             }
-            */
+            
             .eng_text {
                 font-size: 55px;
             }
@@ -227,17 +230,19 @@
             </div>
         </a>
         
-        <!--
-        <a class="find" href="https://google.com" style="padding-top:0px;padding-bottom:0px;">
-            <div class="middle">
-                <p class="eng_text" style="color: white ">
-                    <b>SEARCH</b>
+        <a class="detect" href="/urlcheck" style="padding-top:0px;padding-bottom:0px;">
+            <div class="middle hov">
+                <span class="eng_text" style="color: white ">
+                    <b>Phishing</b>
                     <i class="fas fa-search link_img"></i>
-                </p>
-                <p class="th_text" style="color: white "><b>ค้นหา</b></p>
+                </span>
+                <span class='hov_arrow' style="top:25%">
+                        <span style="font-size: 12px">ตรวจสอบ<br>เว็บไซต์หลอกลวง </span>
+                        <i class="fas fa-angle-double-right"></i>
+                    </span>
+                <p class="th_text" style="color: white "><b>เว็บไซต์หลอกลวง</b></p>
             </div>
         </a>
-        -->
     </div>
 </body>
 

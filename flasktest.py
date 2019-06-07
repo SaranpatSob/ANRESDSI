@@ -1146,16 +1146,32 @@ def check_phishing():
     result = None
     if request.method == 'POST':
         check = request.form['detect']
-        if(check[:4] == "http"):
+        if(check[:5] == "http:"):
             url = check.split('/')
             url = url[2]
-            url = url.split('.')[1:]
+            if url[:3] == "www":
+                url = url.split('.')[1:]
+            else:
+                url = url.split('.')
             ans = ''
             for i in url:
                 ans += i+'_'
             ans = ans[:len(ans)-1]
             result = firebase.get("/phishing_data",ans)
             print(ans,file=sys.stderr)
+        elif(check[:5] == "https"):
+            url = check.split('/')
+            url = url[2]
+            if url[:3] == "www":
+                url = url.split('.')[1:]
+            else:
+                url = url.split('.')
+            ans = ''
+            for i in url:
+                ans += i+'_'
+            ans = ans[:len(ans)-1]
+            result = firebase.get("/phishing_data",ans)
+            print(url,file=sys.stderr)
         elif(check[:4] != 'www.'):
             url = check
             url = url.split('.')
