@@ -9,6 +9,7 @@ Describe this API :
 		*ส่งข้อมูลออกมาในรูป JSON 
 
 เช่น
+	
 	/InformationFromSuspect_API?fname=Piroon&sname=Piroon
 
 ———————————————————————————————————————————————————————
@@ -20,6 +21,7 @@ Describe this API :
 		*ส่งข้อมูลออกมาในรูป JSON 
 
 Case list:
+
 	-	Hacking_to_modify_or_steal_or_destroy_Data
 	-	Selling_products_or_Services_scam
 	-	Fake_to_others
@@ -30,6 +32,7 @@ Case list:
 	-	Defamation
 
 เช่น
+	
 	/InformationFromCase_API?case=Fake_to_others
 
 ———————————————————————————————————————————————————————
@@ -41,6 +44,7 @@ Describe this API :
 		*ส่งข้อมูลออกมาในรูป JSON 
 
 เช่น
+	
 	/InformationFromDate_API?date=3_6_19 หมายถึงหาวันที่ 3 เดือน 6 ปี 2019
 
 ———————————————————————————————————————————————————————
@@ -52,6 +56,7 @@ Describe this API :
 		*ส่งข้อมูลออกมาในรูป JSON 
 
 List ช่องทาง:
+
 	-	facebook
 	-	e-mail
 	-	line
@@ -76,6 +81,7 @@ Describe this API :
 	จะส่งคำตอบออกมาเป็นข้อความ
 
 เช่น
+	
 	/check_phishing_API?link=www.google.com
 
 
