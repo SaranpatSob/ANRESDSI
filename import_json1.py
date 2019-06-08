@@ -4,9 +4,12 @@ from firebase import firebase
 
 firebase = firebase.FirebaseApplication('https://test-database-anres.firebaseio.com', None)
 
-dt = np.array(pd.read_csv("small.txt"))
+dt = np.array(pd.read_csv("domain.txt"))
 
 data_all = []
+
+inp = int(input())
+inp = inp*10000
 
 for i in dt:
     temp = i[0].split('.')
@@ -23,10 +26,11 @@ i=0
 
 while i < len(data_all):
 # for i in range(len(data_all)):
-    if count < 100000:
+    if count < inp:
         count+=1
+        i+=1
         continue
-    if count > len(data_all):
+    if count > inp+10000:
         print("success")
         break
     print(data_all[i]+",count = "+str(count))

@@ -1128,17 +1128,20 @@ def susshow():
 
 @app.route("/urlcheck")
 def urlcheck():
+    alert = 2
     status = request.args.get('status')
     check = request.args.get('link')
     if status is None:
         status = ""
-    if status == "eKfeoLK":
+    elif status == "eKfeoLK":
         status = '"'+check+'" ไม่มีในฐานข้อมูล'
+        alert = 0
     elif status == "KfekaKL":
         status = '"'+check+'" มีความน่าจะเป็นสูงที่จะเป็นฟิชชิ่ง'
+        alert = 1
     else:
         status = ""
-    return render_template("detection.html",status=status)
+    return render_template("detection.html",status=status,alert=alert)
 
 
 @app.route("/check_phishing",methods=['POST'])

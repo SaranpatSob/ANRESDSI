@@ -22,7 +22,6 @@
         .header {
             /*Photo by Joanna Kosinska on Unsplash*/
             background-color: rgb(214, 138, 38);
-
             width: 100%;
             background-attachment: fixed;
             /* Center and scale the image nicely */
@@ -109,6 +108,7 @@
             var sum2 = (h - middle_h) / 2 -35 + 'px ';
             $('head').append('<style>.search_field {position :absolute;bottom: ' + sum + ';}</style>');
             $('head').append('<style>#result {position :absolute;bottom: ' + sum2 + ';}</style>');
+           
         </script>
 
         <div class="search_field"
@@ -117,14 +117,32 @@
             <form action="/check_phishing" method="post" >
 
                 <input type="text" name="detect" id="phishing" placeholder="ใส่ url เว็บที่ต้องการค้นหา" required />
-                <button type="submit"><i class="fa fa-search"></i></button>
+                <button type="submit" ><i class="fa fa-search"></i></button>
 
             </form>
         </div>
-        <div id = "result" style = "left:50%;transform: translate(-50%, -50%) ;color : white">
-            {{ status }}
+        <div id = "result" style = "left:50%;transform: translate(-50%, -50%) ;color : white;">
+            
         </div>
+        <script>
+            var result = '{{alert}}';
+            var txt = '{{status}}';
+            console.log(result);
+              
+            if (result ==1){
+                // txt += 'มีความน่าจะเป็นสูงที่จะเป็นเว็บไซต์หลอกลวง';
+                document.getElementById('result').innerHTML = txt;
+                $('.header').css({"background-color" : "#DC143C"});
 
+            }
+            else if (result == 0){
+                // txt += 'ไม่พบเว็บไซต์นี้ในฐานข้อมูล';
+                document.getElementById('result').innerHTML = txt;
+                $('.header').css({"background-color" : "#32CD32"});
+            }
+    
+            
+        </script>
         <div style="position: absolute;left: 5%;bottom: 5%;">
 
             <a href="/" style="color: white; text-decoration: none">
